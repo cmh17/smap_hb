@@ -1,5 +1,7 @@
 import json
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # with open('cypress_creek\cypress_creek_gages.json') as file:
 #     gages = json.load(file)
@@ -45,5 +47,33 @@ import pandas as pd
     
 # df = pd.DataFrame(rows)
 # print(df)
-# df.to_csv("gage_data.csv", sep='\t')
+# df.to_csv("gage_data.csv")
 
+# Load data
+df = pd.read_csv("gage_data.csv")
+df['dateTime'] = pd.to_datetime(df['dateTime'])
+
+# Unique category labels
+color_labels = df['gage_number'].unique()
+
+# List of RGB triplets
+rgb_values = sns.color_palette("Set2", len(color_labels))
+
+# Map label to RGB
+color_map = dict(zip(color_labels, rgb_values))
+category_colors = df['gage_number'].map(color_map)
+
+# Create scatter plot
+plt.figure(figsize=(10, 6))
+scatter = plt.scatter(df['dateTime'], df['value'], c=category_colors, s=2)
+
+# Create custom legend
+handles = [plt.Line2D([0], [0], marker='o', color='w', label=label,
+                      markerfacecolor=color_map[label], markersize=5) for label in color_labels]
+
+# Add the legend to the plot, adjusting its position
+plt.legend(handles=handles, title='Gage Number', bbox_to_anchor=(1.02, 1), loc='upper left')
+
+# Show the plot
+plt.tight_layout()
+plt.show()

@@ -21,10 +21,4 @@ Cypress Ck nr Westfield, TX - 08069000:
 https://waterdata.usgs.gov/monitoring-location/08069000/#parameterCode=00065&period=P7D&showMedian=false
 
 
-```{r}
-install.packages("rjson", dependencies = T)
-
-
-```
-
 
