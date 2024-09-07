@@ -52,6 +52,7 @@ import seaborn as sns
 # Load data
 df = pd.read_csv("gage_data.csv")
 df['dateTime'] = pd.to_datetime(df['dateTime'])
+df = df[df["variable"] ==  'Discharge, cubic feet per second']
 
 # Unique category labels
 color_labels = df['gage_number'].unique()
@@ -65,7 +66,7 @@ category_colors = df['gage_number'].map(color_map)
 
 # Create scatter plot
 plt.figure(figsize=(10, 6))
-scatter = plt.scatter(df['dateTime'], df['value'], c=category_colors, s=2)
+scatter = plt.scatter(df['dateTime'], df['value'], c=category_colors, s=1)
 
 # Create custom legend
 handles = [plt.Line2D([0], [0], marker='o', color='w', label=label,
