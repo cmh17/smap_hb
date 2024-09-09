@@ -2,6 +2,7 @@ import json
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import numpy as np
 
 # with open('cypress_creek\cypress_creek_gages.json') as file:
 #     gages = json.load(file)
@@ -78,3 +79,52 @@ plt.legend(handles=handles, title='Gage Number', bbox_to_anchor=(1.02, 1), loc='
 # Show the plot
 plt.tight_layout()
 plt.show()
+
+# take log transform and then get quantiles
+
+df_sample = df[df["gage_number"] == 8068720][["dateTime","value"]]
+df_sample["log_value"] = np.log10(df_sample["value"])
+df_sample = df_sample.dropna()
+print(df_sample)
+print("10-year flow: ", np.quantile(df_sample["log_value"], 0.9), 10**np.quantile(df_sample["log_value"],0.9))
+
+# do analysis with both streamflow and rainfall
+# one big event in april of 2016
+# don't really need to look at Harvey bc 
+# eventually if there's so much rainfall,
+# then soil moisture doesn't matter
+
+# look at moderate events where soil moisture
+# antecedent conditions could make a difference
+
+# one of the gages from the FWS has soil moisture
+# good to look at the time series to plot for different
+# rainfall magnitues, how long it takes soil moisture to go back
+
+# look at peak in rainfall and peak in soil moisture:
+# want to know if we have a significant rainfall event, how
+# many days will the moisture stay in the soil?
+
+# then if we have another rainfall event in the next seven
+# days, maybe there will be more of a likelihood of flooding
+
+# if there are back-to-back events, pay special attention to those
+
+# place to start: quantiles
+# first filter out 80th percentile plus
+# and then zoom in from there
+# get rid of like 95th percentile bc don't want super extreme
+
+# poke True
+# look at FWS gages!!
+
+#####
+
+# 1. pick some rain events between 2015 and 2019
+# a. try to find 3 events - they don't have to have caused widespread
+# flooding; just high flow/high rain events
+# b. make slides showing results from analysis
+# 2. get the model from True and try to run it
+# 3. try to download some test data for our region
+
+# AMS eligibility is pretty strict, so this is a good opportunity
