@@ -1,0 +1,58 @@
+---
+title: Data Aquisition and Model Exploration
+author: Carrie Hashimoto
+version: 2024-09-23
+format: beamer
+---
+
+# Last week's items
+
+# Noemi
+Collect data for ML portion
+
+- Dynamic
+    * 50 km SMAP-HB
+    * 30 m SMAP-HB
+    * 0.1-deg IMERG precipitation
+
+- Static
+    * NLCD 2016 land cover
+    * POLARIS 30 m soil properties
+    * USGS 30 m DEM
+
+Organization
+- Dynamic: create folder for each day SMAP data are available
+    * About 600 folders
+- Static: separate folders for 
+
+# Avi
+- Get model from True
+- Ask True about calibration and defaults
+- Ask True for radar rainfall download script
+- Look at existing plans / outputs
+
+# Data acquisition progress
+- Polaris API is down
+    - Downloaded manually but need to automate
+
+## IMERG
+
+- Final run, daily, 10 km (0.1-deg)
+- 2015-2019
+- GeoTIFF format
+- Final run is the research-grade product
+- V06 and V07 algorithms are different enough that you shouldn't mix
+- "precipitation" variable vs MW precip, IR, uncal, etc
+- HDF5 format (1,1800,3600)
+- Final run data avalable are half-hourly and monthly
+    - So just get half-hourly for now
+    - file name ex: 3B-HHR.MS.MRG.3IMERG.20140701-S000000-E002959.0000.V07.RT-H5
+- mm/hr
+- precipitationQualityIndex
+
+# Cypress Creek model info
+- Validation events:
+    * Tax Day
+    * Memorial Day
+    * Harvey
+    * 2 geometry alternatives, finer one performs better

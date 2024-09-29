@@ -1,0 +1,7 @@
+noemi_notes_20240913.qmd
+
+# Work so far
+
+# Questions
+- Currently selecting storms based on quantiles 80-95%
+    - values are fairly low; is it OK to remove Hurricane Harvey since it's such an outlier?

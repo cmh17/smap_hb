@@ -1,0 +1,136 @@
+---
+title: "Rainfall Event Selection"
+format: beamer
+---
+
+<!-- #
+- do analysis with both streamflow and rainfall
+
+- one big event in april of 2016
+
+- don't really need to look at Harvey bc eventually if there's so much rainfall, then soil moisture doesn't matter
+
+#
+- look at moderate events where soil moisture antecedent conditions could make a difference
+
+#
+- one of the gages from the FWS has soil moisture
+
+- good to look at the time series to plot for different rainfall magnitues, how long it takes soil moisture to go back
+
+#
+- look at peak in rainfall and peak in soil moisture: want to know if we have a significant rainfall event, how many days will the moisture stay in the soil?
+
+- then if we have another rainfall event in the next seven
+days, maybe there will be more of a likelihood of flooding
+
+- if there are back-to-back events, pay special attention to those
+
+#
+- place to start: quantiles
+
+- first filter out 80th percentile plus and then zoom in from there; get rid of like 95th percentile bc don't want super extreme
+
+- contact True
+- look at FWS gages -->
+
+# Cypress Creek Watershed
+![HCFCD map](figures\Cypress_Creek.png){width=100%}
+
+# Cypress Creek Background
+
+- 267 sq. mi, or about 700 km^2
+
+- 250 mi open stream, or about 400 km
+
+# Gages to collect data from
+
+1185, 1180, 1175, 1170, 1165, 1150, 1140, 1130, 1120, 1115, 1110
+
+Ones with soil saturation: 1185, 1170, 1140
+
+- 1185 has soil saturation data from 2019-09-25
+
+- 1170 has soil sat from 2021-02-12
+
+- 1140 has soil sat from 2020-11-15
+
+# Cypress Creek Gages
+![Gages on FWS map](figures\bad_gage_map.png){width=100%}
+
+<!-- #
+
+1. pick some rain events between 2015 and 2019
+- a. try to find 3 events - they don't have to have caused widespread
+flooding; just high flow/high rain events
+- b. make slides showing results from analysis
+2. get the model from True and try to run it
+3. try to download some test data for our region -->
+
+# Possible rainfall events
+
+- 2019-10-29: 1.88 in, preceded by rainy days
+- 2017-09-18: 1.64 in, first day of considerable rainfall after Harvey
+- 2016-08-21: 1.44 in - a day of less rain following heavier rain in the past week
+- 2015-05-27: 2.80 in - preceded by lots of moderate rain, maybe too high
+
+# Gage 1185 rainfall and stage
+![2015 rainfall and stage 1185](figures\rainfall_stage_2015.png){width=100%}
+
+- 80th quantile is 0.88 in
+
+- 95th quantile is 2.42 in
+
+#
+![2016 rainfall and stage 1185](figures\rainfall_stage_2016.png){width=100%}
+
+#
+![2017 rainfall and stage 1185](figures\rainfall_stage_2017.png){width=100%}
+
+#
+![2018 rainfall and stage 1185](figures\rainfall_stage_2018.png){width=100%}
+
+#
+![2019 rainfall and stage 1185](figures\rainfall_stage_2019.png){width=100%}
+
+#
+![2019 rainfall and available soil moisture data 1185](figures\\2019_soil_moisture.png){width=100%}
+
+#
+![Rainfall and stage gage 1110](figures\gage_1110_plot.png){width=100%}
+
+
+#
+![Rainfall and stage gage 1120](figures\gage_1120_plot.png){width=100%}
+
+#
+![Rainfall and stage gage 1140](figures\gage_1140_plot.png){width=100%}
+
+#
+![Rainfall and stage gage 1150](figures\gage_1150_plot.png){width=100%}
+
+
+# Next steps
+
+Getting model from True tomorrow
+- Look at existing plans and try running
+
+Look more closely at downstream gages for events of interest
+
+# Next steps
+
+Collect data for ML portion
+
+- Dynamic
+    * 50 km SMAP-HB
+    * 30 m SMAP-HB
+    * 0.1-deg IMERG precip.
+
+- Static
+    * NLCD 2016 land cover
+    * POLARIS 30 m soil properties
+    * USGS 30 m DEM
+
+Do all data acquisiton by script; save as native format for now and review xarrays and tensorflow documentation
+
+# Notes for Next Time

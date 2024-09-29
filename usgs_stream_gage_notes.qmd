@@ -1,0 +1,24 @@
+---
+title: "usgs_stream_gage_notes.rmd"
+author: "Carrie Hashimoto"
+version: "2024-09-01"
+---
+
+# USGS stream gages of interest
+
+Cypress Ck at Katy-Hockley Rd nr Hockley, TX - 08068720: https://waterdata.usgs.gov/monitoring-location/08068720/#parameterCode=00065&period=P7D&showMedian=false
+
+Cypress Ck at House-Hahl Rd nr Cypress, TX - 08068740:
+https://waterdata.usgs.gov/monitoring-location/08068740/#parameterCode=00065&period=P7D&showMedian=false
+
+Cypress Ck at Grant Rd nr Cypress, TX - 08068800:
+https://waterdata.usgs.gov/monitoring-location/08068800/#parameterCode=00065&period=P7D&showMedian=false
+
+Cypress Ck at Stuebner-Airline Rd nr Westfield, TX - 08068900:
+https://waterdata.usgs.gov/monitoring-location/08068900/#parameterCode=00065&period=P7D&showMedian=false
+
+Cypress Ck nr Westfield, TX - 08069000:
+https://waterdata.usgs.gov/monitoring-location/08069000/#parameterCode=00065&period=P7D&showMedian=false
+
+
+
