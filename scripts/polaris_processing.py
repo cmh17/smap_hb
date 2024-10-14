@@ -1,74 +1,60 @@
 import os
-import rasterio
-from rasterio.merge import merge
-from rasterio.mask import mask
-from shapely.geometry import box
+import rioxarray
 import geopandas as gpd
+import xarray as xr
 
-workspace = os.getcwd()
+"""
+Merge and crop the POLARIS data and organize them into folders for each property.
+"""
 
-base_input_dir = "%s/data/polaris" % workspace
-output_dir = "%s/data/polaris/processed" % workspace
+workspace = os.path.dirname(os.getcwd())
+
+base_input_dir = f"{workspace}/data/polaris"
+output_dir = f"{workspace}/data/polaris/processed"
 
 properties = ['sand', 'silt', 'clay', 'ksat']
 depths = ['0_5', '5_15', '15_30', '30_60', '60_100', '100_200']
 
-# Function to merge .tif files
-def merge_tif_files(input_folder, output_path):
-    tif_files = [os.path.join(root, file) 
-                 for root, dirs, files in os.walk(input_folder) 
-                 for file in files if file.endswith(".tif")]
+# Load the shapefile for cropping
+bbox_path = f"{workspace}/data/huc10/centroid_bounding_box.shp"
+bbox = gpd.read_file(bbox_path)
 
+# Check and reproject bbox to match the CRS of the raster
+bbox = bbox.to_crs("EPSG:4326")  # Assuming WGS84 CRS, adjust if needed
+
+# Get the bounding box coordinates
+bbox_bounds = bbox.total_bounds  # [minx, miny, maxx, maxy]
+
+# Function to merge and load .tif files into xarray
+def merge_tif_files(input_folder):
+    tif_files = [os.path.join(root, file)
+                 for root, dirs, files in os.walk(input_folder)
+                 for file in files if file.endswith(".tif")]
+    
     if not tif_files:
         print(f"No TIFF files found in {input_folder}")
         return None
+    
+    datasets = [rioxarray.open_rasterio(tif) for tif in tif_files]
+    
+    merged_data = datasets[0]  # Use the first dataset as the merged result
+    for ds in datasets[1:]:
+        merged_data = merged_data.combine_first(ds)
+    
+    return merged_data
 
-    tif_list = [rasterio.open(tif) for tif in tif_files]
-    
-    merged_tif, out_trans = merge(tif_list)
-    out_meta = tif_list[0].meta.copy()
-    
-    out_meta.update({
-        "driver": "GTiff",
-        "height": merged_tif.shape[1],
-        "width": merged_tif.shape[2],
-        "transform": out_trans,
-        "count": merged_tif.shape[0]
-    })
-    
-    with rasterio.open(output_path, "w", **out_meta) as dest:
-        dest.write(merged_tif)
-    
-    print(f"Merged raster saved to {output_path}")
-    return output_path
 
-# Function to crop the merged raster to a bounding box
-def crop_raster(input_raster_path, output_cropped_path, bbox):
-    with rasterio.open(input_raster_path) as src:
-        geom = box(*bbox)
-        geo_df = gpd.GeoDataFrame({"geometry": [geom]}, crs=src.crs)
-        
-        out_image, out_transform = mask(src, geo_df.geometry, crop=True)
-        out_meta = src.meta.copy()
-        out_meta.update({
-            "driver": "GTiff",
-            "height": out_image.shape[1],
-            "width": out_image.shape[2],
-            "transform": out_transform
-        })
-        
-        with rasterio.open(output_cropped_path, "w", **out_meta) as dest:
-            dest.write(out_image)
-        
+def crop_raster(input_data, output_cropped_path, bbox):
+    if not input_data.rio.crs == "EPSG:4326":
+        input_data = input_data.rio.reproject("EPSG:4326")
+
+    # Crop using the bounding box (bbox_bounds = [minx, miny, maxx, maxy])
+    cropped_data = input_data.rio.clip(bbox.geometry, bbox.crs, drop=True)
+
+    cropped_data.rio.to_raster(output_cropped_path)
     print(f"Cropped raster saved to {output_cropped_path}")
 
-# Load the shapefile for cropping
-bbox_path = "%s/data/huc10/centroid_bounding_box.shp" % workspace
-bbox = gpd.read_file(bbox_path)
-
-bbox = bbox.total_bounds
-
-# loop through properties and depths
+# Loop through properties and depths
 for property in properties:
     property_dir = f"{output_dir}/{property}"
     merged_dir = f"{property_dir}/merged"
@@ -82,7 +68,7 @@ for property in properties:
         merged_output_path = f"{merged_dir}/merged_{property}_{depth}.tif"
         cropped_output_path = f"{cropped_dir}/cropped_{property}_{depth}.tif"
 
-        # merge and crop
-        merged_file = merge_tif_files(input_folder, merged_output_path)
-        if merged_file:
-            crop_raster(merged_file, cropped_output_path, bbox)
+        # Merge and crop the files
+        merged_data = merge_tif_files(input_folder)
+        if merged_data is not None:
+            crop_raster(merged_data, cropped_output_path, bbox)

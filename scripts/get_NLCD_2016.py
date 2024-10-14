@@ -6,6 +6,28 @@ Download NLCD_2016_Land_Cover_L48 (US) landcover from www.mrlc.gov WCS
 for the extent of the input SHP file. The output is a tif image in 4326 coordinate system.
 The target spatial resolution can be specified in degrees (4326) as an optional parameter.
 Images for large extents are downloaded in tiles and then merged together
+
+reirby's license:
+
+MIT License
+
+Copyright (c) 2024 Andrei Kushkin
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+and associated documentation files (the "Software"), to deal in the Software without restriction,
+ including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+ sublicense, and/or sell copies of the Software, and to permit persons to whom the Software 
+ is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or 
+substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS 
+BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE 
+OR OTHER DEALINGS IN THE SOFTWARE.
 """
 from osgeo import gdal
 from osgeo import ogr
@@ -99,7 +121,6 @@ def split_extent(extent, spatial_resolution):
 
     subextents = []
 
-    # Calculate the number of rows and columns
     num_rows = math.ceil((max_y - min_y) / subextent_size)
     num_cols = math.ceil((max_x - min_x) / subextent_size)
 
@@ -152,7 +173,6 @@ def get_IMG(wcs_url, fname, spatial_resolution=None):
 
         print(f"Image saved to {fname}")
         return "success"
-
 
 def build_mosaic(input_IMGs, output_mosaic):
     # List of input raster files
