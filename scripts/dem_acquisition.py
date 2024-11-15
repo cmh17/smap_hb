@@ -7,15 +7,14 @@ from rasterio.plot import show
 from pyproj import Proj, transform
 
 workspace = os.getcwd()
-# print(workspace)
 
 # Input API key
-API_Key = "your API key"
+API_Key = "your API key here"
 
 # Input URL text
 url_base = "https://portal.opentopography.org/API/usgsdem"
 
-bbox_path = "%s/data/huc10/centroid_bounding_box.shp" % workspace
+bbox_path = "%s/data/huc10/centroid_buffered_bounding_box.shp" % workspace
 bbox = gpd.read_file(bbox_path)
 bounds = bbox.total_bounds
 

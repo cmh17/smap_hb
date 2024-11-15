@@ -5,14 +5,15 @@ import xarray as xr
 import numpy as np
 
 workspace = os.getcwd()
+print(workspace)
 
-base_dir = "%s/data/smaphb/SMAPHB_sample/" % workspace
+base_dir = "%s/data/smaphb/SMAP_sample_50km_v2" % workspace
 output_dir = "%s/data/daily/" % workspace
 
 Path(output_dir).mkdir(parents=True, exist_ok=True)
 
 # Pattern to match filenames in the format 'SMAP-HB_surface-soil-moisture_30m_daily_YYYY-MM.nc'
-pattern = r'SMAP-HB_surface-soil-moisture_30m_daily_(\d{4})-(\d{2})\.nc'
+pattern = r'SMAP-HB_surface-soil-moisture_50000m_daily_(\d{4})-(\d{2})\.nc'
 
 # Threshold for minimum valid data points (80% valid data)
 valid_threshold = 0.8
@@ -47,11 +48,8 @@ for filename in os.listdir(base_dir):
                     # Save CRS
                     this_day = this_day.rio.write_crs("EPSG:4326")
 
-                    # Ensure NAs are -9999
-                    this_day = this_day.fillna(-9999)
-
                     # Save the NetCDF for this day, overwriting if it already exists
-                    this_day.to_netcdf(os.path.join(day_folder, f"SMAPHB_SM_{year}-{month}-{day_str}.nc"), mode="w")
+                    this_day.to_netcdf(os.path.join(day_folder, f"SMAPHB_SM_{year}-{month}-{day_str}_50km.nc"), mode="w")
                     print(f"Saved {day_folder} with {valid_percentage:.2%} valid data")
                 else:
                     print(f"Skipping {year}-{month}-{day_str}: Only {valid_percentage:.2%} valid data")
