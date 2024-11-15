@@ -4,22 +4,34 @@ import rioxarray
 from rasterio.enums import Resampling
 import numpy as np
 
-nlcd_file = os.path.join(os.getcwd(), 'data/nlcd/nlcd_2016_cropped.tif')
-
-nlcd_raster = rioxarray.open_rasterio(nlcd_file)
-
+# Load the NLCD raster
+nlcd_file = os.path.join(os.getcwd(), 'data/nlcd/nlcd_2016_buffered.tif')
+nlcd_raster = xr.open_dataarray(nlcd_file)
 nlcd_raster = nlcd_raster.rio.write_crs("EPSG:4326", inplace=True)
 
-target_shape = (3600, 3600)  # Same number of rows and columns as other data
-target_resolution = 30 / (111320 * np.cos(np.deg2rad(30))) # same as IMERG and SMAP 50 km
+# Load the SMAP data
+smap_file = os.path.join(os.getcwd(), 'data/daily/2015-04-01/SMAPHB_SM_2015-04-01.nc')
+smap_raster = xr.open_dataset(smap_file)
 
-nlcd_resampled = nlcd_raster.rio.reproject(
-    nlcd_raster.rio.crs,
-    shape=target_shape,
-    resampling=Resampling.nearest  # Use nearest neighbor for categorical data
-)
+# Temporarily rename lat/lon to x/y for rioxarray processing
+smap_raster_temp = smap_raster.rename({'lon': 'x', 'lat': 'y'})
 
-resampled_nlcd_file = os.path.join(os.getcwd(), 'data/nlcd/resampled_nlcd_2016_cropped.tif')
+# Ensure SMAP data has spatial dimensions set for rioxarray
+smap_raster_temp = smap_raster_temp.rio.set_spatial_dims(x_dim='x', y_dim='y')
+
+# Assign CRS to the SMAP raster since it's missing from SMAP outputs
+smap_raster_temp = smap_raster_temp.rio.write_crs("EPSG:4326", inplace=True)
+
+# Resample NLCD to match the SMAP data's resolution and extent
+nlcd_resampled = nlcd_raster.rio.reproject_match(smap_raster_temp)
+
+# Rename x/y to lat/lon after resampling to match SMAP dataset
+nlcd_resampled = nlcd_resampled.rename({'x': 'lon', 'y': 'lat'})
+
+# Squeeze out any meaningless "band" dimensions
+nlcd_resampled = nlcd_resampled.squeeze('band', drop=True) if 'band' in nlcd_resampled.dims else nlcd_resampled
+
+# Save the resampled NLCD raster with lat/lon coordinates
+resampled_nlcd_file = os.path.join(os.getcwd(), 'data/nlcd/resampled_nlcd_2016.tif')
 nlcd_resampled.rio.to_raster(resampled_nlcd_file)
-
 print(f"Resampled NLCD raster saved to: {resampled_nlcd_file}")
