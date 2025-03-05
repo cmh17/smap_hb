@@ -9,7 +9,7 @@ from pyproj import Proj, transform
 workspace = os.getcwd()
 
 # Input API key
-API_Key = "your API key here"
+API_Key = "78770cd6f4ea66a61c65096065d94f07"
 
 # Input URL text
 url_base = "https://portal.opentopography.org/API/usgsdem"
