@@ -1,8 +1,9 @@
-# Use backup image as the base
-FROM 7d8007fb133ba195aab037c64832e0d2ebdb6e94c4ef579191aae7ebe2e1ee02
+# Use your backup image as the base (ensure that your backup image is correctly referenced)
+FROM wrf-hydro-training:latest
 
 USER root
 
+# Ensure software-properties-common is installed and add the universe repository
 RUN apt-get update && apt-get install -yq --no-install-recommends software-properties-common && \
     apt-add-repository universe && apt-get update
 
@@ -28,17 +29,21 @@ RUN apt-get update && apt-get install -yq --allow-unauthenticated --no-install-r
     python3-rasterio \
     r-base-core \
     valgrind \
-    libunistring0 \
+    libunistring2 \
+    libgeos-dev \
+    libproj-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# R packages installation
-RUN Rscript -e "install.packages(c('ncdf4','optparse','stringr','plyr'), repos='https://cran.rstudio.com')"
-
-# Miniconda is already installed on the backup
-ENV PATH="/home/docker/miniconda3/bin:${PATH}"
+# Install R packages including sf
+RUN Rscript -e "install.packages(c('ncdf4','optparse','stringr','plyr'), repos='https://cran.rstudio.com', dependencies=TRUE)"
 
 RUN conda install -y -c conda-forge gdal
 
-USER docker
+# Verify installation
+RUN R -e "library(ncdf4); library(optparse); library(stringr); library(plyr)" && python -c "from osgeo import ogr; print('ogr installed successfully')"
 
+# Ensure Miniconda is on PATH (assumes Miniconda is installed at /home/docker/miniconda3)
+ENV PATH="/home/docker/miniconda3/bin:${PATH}"
+
+USER docker
 WORKDIR /home/docker
