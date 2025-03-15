@@ -58,7 +58,6 @@ def create_static_zarr_template(
             "chunks": (lat_chunk, lon_chunk),
         }
 
-
     # Remove existing store if present
     if os.path.exists(final_path):
         shutil.rmtree(final_path)
@@ -74,7 +73,6 @@ def create_static_zarr_template(
     )
     print("Static template created at:", final_path)
     return ds
-
 
 def main():
     workspace = os.getcwd()
@@ -101,14 +99,22 @@ def main():
         smap_raster = smap_raster.rio.write_crs("EPSG:4326", inplace=True)
 
     # Load data
-    dem_data = xr.open_dataarray(dem_file)
+    dem_data = xr.open_dataset(dem_file)
     iclus_one_hot = xr.open_dataset(iclus_file)
     polaris_data = xr.open_dataset(polaris_file)
+
+    print(dem_data)
+    print(iclus_one_hot)
+    print(polaris_data)
 
     # Set spatial dims
     dem_data = dem_data.rio.set_spatial_dims(x_dim="lon", y_dim="lat")
     iclus_one_hot = iclus_one_hot.rio.set_spatial_dims(x_dim="lon", y_dim="lat")
     polaris_data = polaris_data.rio.set_spatial_dims(x_dim="lon", y_dim="lat")
+
+    # Set the dem crs
+    if not dem_data.rio.crs:
+        dem_data = dem_data.rio.write_crs("EPSG:4326", inplace=True) # sigh
 
     if "band" in dem_data:
         dem_data = dem_data.drop_vars("band")
@@ -176,6 +182,8 @@ def main():
     if "spatial_ref" in ds_zarr:
         ds_zarr = ds_zarr.drop_vars("spatial_ref")
 
+    static_ds.attrs["projection"] = "EPSG:4326"
+
     for var in static_ds.data_vars:
         # Remove any existing _FillValue from attrs
         if "_FillValue" in static_ds[var].attrs:
@@ -186,7 +194,6 @@ def main():
         # Now set the _FillValue in encoding
         static_ds[var].encoding["_FillValue"] = -9999
 
-    # use "mode='a'" for region writes
     static_ds.to_zarr(
         output_zarr_dir,
         region=region_slices,

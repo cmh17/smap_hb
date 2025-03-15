@@ -68,9 +68,8 @@ def main():
         print("Failed to open DEM file:", e)
         return
 
-    # Ensure the DEM has a CRS. Assign EPSG:4326 if missing or different.
-    if dem_raster.rio.crs is None or dem_raster.rio.crs.to_string() != "EPSG:4326":
-        dem_raster = dem_raster.rio.write_crs("EPSG:4326", inplace=True)
+    # Ensure the DEM has a CRS
+    dem_raster = dem_raster.rio.write_crs("EPSG:4326", inplace=True)
 
     # Remove the "band" dimension if present
     if "band" in dem_raster.dims:
@@ -92,16 +91,25 @@ def main():
     # Reproject DEM to match SMAP data
     dem_reprojected = dem_raster.rio.reproject_match(smap_raster)
 
+    # Update encoding to use -9999
+    if "_FillValue" in dem_reprojected.encoding:
+        del dem_reprojected.encoding["_FillValue"]
+    dem_reprojected.encoding["_FillValue"] = -9999
+
+    dem_reprojected.name = "elevation"
+
     # Rename dimensions back to 'lon' and 'lat'
     dem_reprojected = dem_reprojected.rename({'x': 'lon', 'y': 'lat'})
     dem_reprojected = dem_reprojected.rio.set_spatial_dims(x_dim='lon', y_dim='lat')
 
-    # Fill NaNs with -9999
-    dem_reprojected = dem_reprojected.fillna(-9999)
+    dem_reprojected = dem_reprojected.rio.write_crs("EPSG:4326", inplace=True)
     
     # Save the reprojected DEM as a NetCDF file
     reprojected_dem_file = workspace / "data" / "dem" / "usgs_30m_dem.nc"
     try:
+        # remove if file already exists
+        if reprojected_dem_file.exists():
+            reprojected_dem_file.unlink()
         dem_reprojected.to_netcdf(str(reprojected_dem_file))
         print(f"Reprojected DEM raster saved to: {reprojected_dem_file}")
     except Exception as e:
@@ -109,4 +117,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

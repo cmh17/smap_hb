@@ -23,66 +23,98 @@ into two separate Zarr stores:
 - dynamic.zarr for the SMAP 10km and IMERG 10km data.
 """
 
-def create_zarr_template(final_path, variable, lats, lons, chunk, 
-                        ag_times, compression_level):
+def create_zarr_template(
+    final_path, 
+    var_names, 
+    lats, 
+    lons, 
+    ag_times, 
+    chunk, 
+    compression_level, 
+    additional_attrs=None
+):
+    """
+    Create a lazy Zarr template for the given variables and coordinate arrays,
+    without allocating a massive NumPy array. 
+    Uses Dask `da.empty` to define the shape lazily.
 
-    nlon = len(lons)
-    nlat = len(lats)
+    :param final_path: Path to save the Zarr store
+    :param var_names: List of variable names (e.g. ["smaphb_30m"] or ["smaphb_10km", "imerg_10km"])
+    :param lats: 1D array of lat coords (length nlat)
+    :param lons: 1D array of lon coords (length nlon)
+    :param ag_times: 1D array of time coords (length nt)
+    :param chunk: Dictionary specifying chunk sizes, e.g. {"time": 1, "lat": 360, "lon": 360}
+    :param compression_level: Integer for Blosc compression level (0..9)
+    :param additional_attrs: Optional dictionary of global attributes (e.g. {"projection": "EPSG:4326"})
+    """
+    # Prepare coordinates
     nt = len(ag_times)
+    nlat = len(lats)
+    nlon = len(lons)
 
-    # Create a uninitialize xarray template
-    template = xr.DataArray(da.empty((nt,nlat,nlon), dtype=np.float32, compute=False),
-                            coords=[ag_times, lats, lons],
-                            dims=["time", "lat", "lon"])
-    template = template.to_dataset(name=variable)
+    # Convert chunk dict into a tuple for Dask
+    # E.g. chunk={"time":1,"lat":360,"lon":360} => (1,360,360)
+    # If any dimension is missing from chunk, default to full size.
+    time_chunk = chunk.get("time", nt)
+    lat_chunk = chunk.get("lat", nlat)
+    lon_chunk = chunk.get("lon", nlon)
 
-    # Define and rechunk data
-    template = template.chunk(chunk)
+    # Create a Dask array that doesn't store data in memory
+    # shape = (nt, nlat, nlon), chunk shape = (time_chunk, lat_chunk, lon_chunk)
+    # This array is "empty": meaning uninitialized. We won't physically compute it.
+    lazy_array = da.empty(
+        (nt, nlat, nlon),
+        chunks=(time_chunk, lat_chunk, lon_chunk),
+        dtype=np.float32
+    )
 
-    # Grab chunk ranges
-    clats = template.chunks['lat']
-    clons = template.chunks['lon']
-    ctimes = template.chunks['time']
+    # Build an xarray Dataset with each variable referencing the same lazy_array
+    # (We just replicate it for each variable, so each variable has the same shape.)
+    ds_vars = {}
+    for var in var_names:
+        ds_vars[var] = (("time", "lat", "lon"), lazy_array)
 
-    # Double chunk in time
-    chunk['time'] = int(np.ceil(chunk['time']/10.))
-    template = template.chunk(chunk)
-    
-    # Define attributes
-    attrs = dict(projection="EPSG:4326")
-    template = template.assign_attrs(attrs)
+    ds = xr.Dataset(
+        ds_vars,
+        coords={"time": ag_times, "lat": lats, "lon": lons}
+    )
 
-    # Create zarr template on the disk
+    # Assign optional global attributes
+    if additional_attrs is not None:
+        ds = ds.assign_attrs(additional_attrs)
+
+    # Build the encoding dictionary for each variable
+    compressor = Blosc(cname="zstd", clevel=compression_level, shuffle=1)
+    encoding = {}
+    for var in var_names:
+        encoding[var] = {
+            "_FillValue": -9999,
+            "compressor": compressor,
+            # We replicate the chunk shape for safety
+            "chunks": (time_chunk, lat_chunk, lon_chunk)
+        }
+
+    # Also encode the 'time' coordinate as an integer
+    encoding["time"] = {"dtype": "i4"}
+
+    # Remove any existing Zarr store
     if os.path.exists(final_path):
         shutil.rmtree(final_path)
-    zarr_compressor = Blosc(cname="zstd", clevel=compression_level, shuffle=1)
-    zarr_encoding = { variable    : {'_FillValue': -9999,
-                                    'compressor': zarr_compressor,
-                                    'chunks': (chunk['time'],chunk['lat'],chunk['lon'])},
-                                    'time': {'dtype': 'i4'},
-                    }
-    template.to_zarr(final_path, encoding=zarr_encoding, zarr_format=2, compute=False, consolidated=True, mode='w')
-    print(datetime.datetime.now(), 'Data template is ready', flush=True)
 
-    template.close()
-    del template
+    # Write the dataset to Zarr, using mode="w" or mode="w-"
+    # compute=False ensures we don't try to fill the array with real data
+    ds.to_zarr(
+        final_path,
+        encoding=encoding,
+        zarr_format=2,    # Or omit if you'd rather use zarr v3
+        compute=False,
+        consolidated=True,
+        mode="w"
+    )
 
-    regions = {}
+    print(datetime.datetime.now(), f"Data template is ready for {var_names}")
+    return ds
 
-    # define slicing regions
-    regions['lon_slice'] = [(i*clons[0],i*clons[0]+clons[i]-1) for i in range(len(clons))]
-    regions['lat_slice'] = [(i*clats[0],i*clats[0]+clats[i]-1) for i in range(len(clats))]
-    regions['time_slice'] = [(i*ctimes[0],i*ctimes[0]+ctimes[i]-1) for i in range(len(ctimes))]
-
-    # defining regions ranges
-    regions['lat_range'] = [(lats[region[0]],lats[region[1]])
-                             for region in regions['lat_slice']]
-    regions['lon_range'] = [(lons[region[0]],lons[region[1]])
-                             for region in regions['lon_slice']]
-    regions['time_range'] = [(ag_times[region[0]],ag_times[region[1]])
-                             for region in regions['time_slice']]
-
-    return regions
 
 # daily_folders = daily_folders[:10]  # For testing, just use the first 10 days
 
@@ -138,6 +170,10 @@ def open_and_prepare_daily_dataset(daily_dir, daily_folder):
     target_ds = xr.merge(target_dataarrays, compat="override")
     dynamic_ds = xr.merge(dynamic_dataarrays, compat="override")
 
+    # Drop spatial ref
+    target_ds = target_ds.drop_vars("spatial_ref")
+    dynamic_ds = dynamic_ds.drop_vars("spatial_ref")
+
     return target_ds, dynamic_ds
 
 def main():
@@ -168,8 +204,16 @@ def main():
     # Create ag_times from daily_folders
     ag_times = np.array([np.datetime64(d) for d in daily_folders])
 
-    regions_target = create_zarr_template(output_zarr_target, "smaphb_30m", lats_30m, lons_30m, chunk, 
-                        ag_times, compression_level)
+    regions_target = create_zarr_template(
+        final_path=output_zarr_target,
+        var_names=["smaphb_30m"],
+        lats=lats_30m,
+        lons=lons_30m,
+        ag_times=ag_times,
+        chunk={"time": 1, "lat": 360, "lon": 360},
+        compression_level=5,
+        additional_attrs={"projection": "EPSG:4326"}
+    )
 
     # Create dynamic.zarr template
     # Look at first day's data to get spatial information
@@ -182,31 +226,59 @@ def main():
     chunk = {"time": 1, "lat": 1, "lon": 1}
     compression_level = 5
 
-    regions_dynamic = create_zarr_template(output_zarr_dynamic, "smaphb_10km", lats_10km, lons_10km, chunk,
-                        ag_times, compression_level)
+    regions_dynamic = create_zarr_template(
+        final_path=output_zarr_dynamic,
+        var_names=["smaphb_10km", "imerg_10km"],
+        lats=lats_10km,
+        lons=lons_10km,
+        ag_times=ag_times,
+        chunk={"time": 1, "lat": 1, "lon": 1},
+        compression_level=5,
+        additional_attrs={"projection": "EPSG:4326"}
+    )
 
-    for idx, daily_folder in enumerate(daily_folders[1:10]):
+    for idx, daily_folder in enumerate(daily_folders):
         print(f"Processing folder: {daily_folder}")
 
         target_ds, dynamic_ds = open_and_prepare_daily_dataset(daily_dir, daily_folder)
+        
+        # print(target_ds)
+        # print(dynamic_ds)
 
         time_stamp = np.datetime64(daily_folder)
         time_index = np.searchsorted(ag_times, time_stamp)
 
         region_slices_target = {
         "time": slice(time_index, time_index+1),
-        "lat":  slice(0, len(lats_30m)),   # covers all lat
-        "lon":  slice(0, len(lons_30m)),   # covers all lon
+        "lat":  slice(0, len(lats_30m)), 
+        "lon":  slice(0, len(lons_30m)), 
         }
 
-        store_path_target = "combined_output/target.zarr"
+        store_path_target = output_zarr_target
         ds_zarr_target = xr.open_zarr(store_path_target)
+
+        # template_target = xr.open_zarr(output_zarr_target)
+        # print("Template lat:", template_target["lat"].values[:5])
+
+        # template_dynamic = xr.open_zarr(output_zarr_dynamic)
+        # print("Template lat:", template_dynamic["lat"].values[:5])
+
+        # # For a daily dataset:
+        # print("Target lat:", target_ds["lat"].values[:5])
+        # print("Dynamic lat:", dynamic_ds["lat"].values[:5])
 
         target_ds.to_zarr(
             store_path_target,
             region=region_slices_target,
-            mode="w"
+            mode="a"
         )
+
+        # Verify the day was written
+        test_ds = xr.open_zarr(store_path_target, consolidated=True)
+        today_ds = test_ds.sel(time=time_stamp)
+        # print("Min / Max for", daily_folder, ":",
+        #     today_ds["smaphb_30m"].min().values,
+        #     today_ds["smaphb_30m"].max().values)
 
         region_slices_dynamic = {
         "time": slice(time_index, time_index+1),
@@ -214,16 +286,24 @@ def main():
         "lon":  slice(0, len(lons_10km)),   
         }
 
-        store_path_dynamic = "combined_output/dynamic.zarr"
+        store_path_dynamic = output_zarr_dynamic
         ds_zarr_dynamic = xr.open_zarr(store_path_dynamic)
 
         dynamic_ds.to_zarr(
             store_path_dynamic,
             region=region_slices_dynamic,
-            mode="w"
+            mode="a"
         )
 
-        
+        test_ds_dyn = xr.open_zarr(store_path_dynamic, consolidated=True)
+        today_dyn = test_ds_dyn.sel(time=time_stamp)
+        # print("Dynamic Min / Max for", daily_folder, ":",
+        #     today_dyn["smaphb_10km"].min().values,
+        #     today_dyn["smaphb_10km"].max().values,
+        #     today_dyn["imerg_10km"].min().values,
+        #     today_dyn["imerg_10km"].max().values)
+
+  
     print(f"\nTarget Zarr store created/updated at: {output_zarr_target}")
     print(f"Dynamic Zarr store created/updated at: {output_zarr_dynamic}")
 

@@ -67,8 +67,15 @@ def one_hot_encode(data, land_cover_dict):
     one_hot_ds = one_hot_ds.assign_coords(data.coords).assign_attrs(data.attrs)
     # Rename dimensions back to 'lon' and 'lat'
     one_hot_ds = one_hot_ds.rename({'x': 'lon', 'y': 'lat'})
-    one_hot_ds = one_hot_ds.fillna(-9999)
+    # one_hot_ds = one_hot_ds.fillna(-9999)
+    # Update metadata with a new _Fillvalue
+    one_hot_ds.attrs['_FillValue'] = -9999
+    one_hot_ds.encoding["_FillValue"] = -9999
     print("One-hot encoding completed.")
+    # Squeeze out band dim
+    one_hot_ds = one_hot_ds.squeeze('band', drop=True)
+    # Add metadata for projection
+    one_hot_ds = one_hot_ds.assign_attrs({"projection": "EPSG:4326"})
     return one_hot_ds
 
 def main():
@@ -108,8 +115,8 @@ def main():
         print("Clipping ICLUS data failed:", e)
         return
     
-    # Set NaNs to -9999
-    iclus_clipped = iclus_clipped.fillna(-9999)
+    # # Set NaNs to -9999
+    # iclus_clipped = iclus_clipped.fillna(-9999)
     
     # Reproject clipped ICLUS data to match SMAP template
     try:

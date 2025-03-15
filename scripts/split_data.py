@@ -4,7 +4,7 @@ import os
 workspace = os.getcwd()
 
 # Open datasets
-static = xr.open_dataset(f"{workspace}/data/combined_output/combined_static_data.nc")  # includes DEM, Polaris, etc.
+static = xr.open_zarr(f"{workspace}/data/combined_output/static.zarr")  # includes DEM, Polaris, etc.
 dynamic = xr.open_zarr(f"{workspace}/data/combined_output/dynamic.zarr", consolidated=False)  # includes SMAP 10km, IMERG 10km
 target = xr.open_zarr(f"{workspace}/data/combined_output/target.zarr", consolidated=False)  # includes SMAP 30 m
 
@@ -13,8 +13,8 @@ tiles_dir = os.path.join(workspace, "data/combined_output/tiles")
 os.makedirs(tiles_dir, exist_ok=True)
 
 # Split the data into 10x10 tiles (each tile covering a specific range)
-for i in range(10):
-    for j in range(10):
+for i in range(1):
+    for j in range(1):
         print(f"Processing tile {i}, {j}")
         tile_dir = os.path.join(tiles_dir, f"tile_{i}_{j}")
         os.makedirs(tile_dir, exist_ok=True)
@@ -37,8 +37,8 @@ for i in range(10):
         # Process dynamic tile if file doesn't exist
         if not os.path.exists(dynamic_file):
             dynamic_tile = dynamic.isel(
-                lat_10km=slice(i, i+1),
-                lon_10km=slice(j, j+1)
+                lat=slice(i, i+1),
+                lon=slice(j, j+1)
             )
             dynamic_tile.to_netcdf(dynamic_file)
         else:
@@ -47,8 +47,8 @@ for i in range(10):
         # Process target tile if file doesn't exist
         if not os.path.exists(target_file):
             target_tile = target.isel(
-                lat_30m=slice(i*360, (i+1)*360),
-                lon_30m=slice(j*360, (j+1)*360)
+                lat=slice(i*360, (i+1)*360),
+                lon=slice(j*360, (j+1)*360)
             )
             target_tile.to_netcdf(target_file)
         else:
