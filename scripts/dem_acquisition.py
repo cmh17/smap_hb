@@ -30,7 +30,7 @@ def main():
     workspace = Path.cwd()
 
     # Input parameters
-    API_Key = "78770cd6f4ea66a61c65096065d94f07"
+    API_Key = "API key here"
     url_base = "https://portal.opentopography.org/API/usgsdem"
     
     # Read bounding box from shapefile

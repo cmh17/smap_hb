@@ -1,0 +1,2664 @@
+Traceback (most recent call last):
+  File "/work/nv25/Carrie/cypress_creek/scripts/model_scripts/train_unet7.py", line 9, in <module>
+    import xarray as xr
+ModuleNotFoundError: No module named 'xarray'
+Traceback (most recent call last):
+  File "/work/nv25/Carrie/cypress_creek/scripts/model_scripts/train_unet7.py", line 12, in <module>
+    from data_loader_unet7 import CombinedDataset
+ModuleNotFoundError: No module named 'data_loader_unet7'
+/home/runai-home/.local/lib/python3.10/site-packages/xarray/backends/api.py:668: RuntimeWarning: 'netcdf4' fails while guessing
+  engine = plugins.guess_engine(filename_or_obj)
+/home/runai-home/.local/lib/python3.10/site-packages/xarray/backends/api.py:668: RuntimeWarning: 'scipy' fails while guessing
+  engine = plugins.guess_engine(filename_or_obj)
+/home/runai-home/.local/lib/python3.10/site-packages/xarray/backends/api.py:668: RuntimeWarning: 'h5netcdf' fails while guessing
+  engine = plugins.guess_engine(filename_or_obj)
+static shape:  torch.Size([8, 33, 360, 360])
+dynamic shape: torch.Size([8, 2])
+target shape:  torch.Size([8, 1, 360, 360])
+Loading data took 2.50 seconds
+--- EPOCH 1/100 ---
+Traceback (most recent call last):
+  File "/work/nv25/Carrie/cypress_creek/scripts/model_scripts/train_unet7.py", line 211, in <module>
+    avg_loss = train_one_epoch(epoch, writer=writer)
+  File "/work/nv25/Carrie/cypress_creek/scripts/model_scripts/train_unet7.py", line 131, in train_one_epoch
+    for step, (static_maps, dyn_vec, target) in enumerate(training_loader):
+  File "/usr/local/lib/python3.10/dist-packages/torch/utils/data/dataloader.py", line 630, in __next__
+    data = self._next_data()
+  File "/usr/local/lib/python3.10/dist-packages/torch/utils/data/dataloader.py", line 674, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+  File "/usr/local/lib/python3.10/dist-packages/torch/utils/data/_utils/fetch.py", line 51, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/usr/local/lib/python3.10/dist-packages/torch/utils/data/_utils/fetch.py", line 51, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/work/nv25/Carrie/cypress_creek/scripts/model_scripts/data_loader_unet6.py", line 73, in __getitem__
+    static_arr = xr.open_dataset(os.path.join(basepath, "static.nc"))[self.static_vars].to_array().values
+  File "/home/runai-home/.local/lib/python3.10/site-packages/xarray/backends/api.py", line 668, in open_dataset
+    engine = plugins.guess_engine(filename_or_obj)
+  File "/home/runai-home/.local/lib/python3.10/site-packages/xarray/backends/plugins.py", line 194, in guess_engine
+    raise ValueError(error_msg)
+ValueError: did not find a match in any of xarray's currently installed IO backends ['netcdf4', 'scipy', 'rasterio', 'zarr']. Consider explicitly selecting one of the installed engines via the ``engine`` parameter, or installing additional IO dependencies, see:
+https://docs.xarray.dev/en/stable/getting-started-guide/installing.html
+https://docs.xarray.dev/en/stable/user-guide/io.html
+/work/nv25/Carrie/cypress_creek/scripts/model_scripts/data_loader_unet7.py:125: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /opt/pytorch/pytorch/torch/csrc/utils/tensor_numpy.cpp:206.)
+  self._tgt_cache[tile] = torch.from_numpy(npmap).pin_memory()  # CPU pinned
+Loading data took 0.70 seconds
+--- EPOCH 1/100 ---
+step 0   loader 6654.1 ms  gpu  586.6 ms
+step 1   loader 4493.3 ms  gpu   62.0 ms
+step 2   loader 5668.4 ms  gpu   62.9 ms
+step 3   loader 3658.9 ms  gpu   62.4 ms
+step 4   loader 5724.2 ms  gpu   62.8 ms
+step 5   loader 4000.7 ms  gpu   62.5 ms
+step 6   loader 2497.9 ms  gpu   62.4 ms
+step 7   loader 3982.8 ms  gpu   62.7 ms
+step 8   loader 5642.4 ms  gpu   62.7 ms
+step 9   loader 3655.9 ms  gpu   62.5 ms
+step 10  loader 1525.6 ms  gpu   62.2 ms
+step 11  loader 3603.9 ms  gpu   63.6 ms
+step 12  loader 4395.2 ms  gpu   63.3 ms
+step 13  loader 3869.1 ms  gpu   63.1 ms
+step 14  loader 3660.3 ms  gpu   62.6 ms
+step 15  loader 2885.4 ms  gpu   65.8 ms
+step 16  loader    1.8 ms  gpu   64.1 ms
+step 17  loader 2541.6 ms  gpu   62.4 ms
+step 18  loader 2496.3 ms  gpu   62.1 ms
+step 19  loader 2320.3 ms  gpu   62.0 ms
+Epoch 0 finished in 121.81 seconds
+Epoch 0, average train loss=0.0165
+Validation for epoch 0 took 54.09 seconds
+Validation MSE: 0.0086
+Train MSE: 0.016525, Val MSE: 0.008636
+Saved new best model to /work/nv25/Carrie/cypress_creek/models/model_outputs/unet7_std_model_20250505_162429_epoch0.pth
+--- EPOCH 2/100 ---
+step 0   loader    1.9 ms  gpu   63.2 ms
+step 1   loader    1.4 ms  gpu   61.8 ms
+step 2   loader    1.1 ms  gpu   61.8 ms
+step 3   loader    1.2 ms  gpu   61.8 ms
+step 4   loader    1.2 ms  gpu   61.9 ms
+step 5   loader    1.0 ms  gpu   61.8 ms
+step 6   loader    1.0 ms  gpu   61.8 ms
+step 7   loader    1.1 ms  gpu   61.6 ms
+step 8   loader    0.9 ms  gpu   61.9 ms
+step 9   loader    0.9 ms  gpu   61.6 ms
+step 10  loader    0.8 ms  gpu   62.1 ms
+step 11  loader    1.4 ms  gpu   62.0 ms
+step 12  loader    1.3 ms  gpu   61.9 ms
+step 13  loader    0.9 ms  gpu   62.2 ms
+step 14  loader    1.1 ms  gpu   62.4 ms
+step 15  loader    1.3 ms  gpu   61.8 ms
+step 16  loader    1.2 ms  gpu   61.9 ms
+step 17  loader    1.0 ms  gpu   62.9 ms
+step 18  loader    4.2 ms  gpu   64.9 ms
+step 19  loader    1.1 ms  gpu   61.8 ms
+Epoch 1 finished in 18.27 seconds
+Epoch 1, average train loss=0.0088
+Validation for epoch 1 took 6.00 seconds
+Validation MSE: 0.0083
+Train MSE: 0.008813, Val MSE: 0.008264
+Saved new best model to /work/nv25/Carrie/cypress_creek/models/model_outputs/unet7_std_model_20250505_162429_epoch1.pth
+--- EPOCH 3/100 ---
+step 0   loader    2.8 ms  gpu   63.9 ms
+step 1   loader    1.6 ms  gpu   62.4 ms
+step 2   loader    1.5 ms  gpu   62.6 ms
+step 3   loader    1.4 ms  gpu   62.6 ms
+step 4   loader    1.6 ms  gpu   62.2 ms
+step 5   loader    1.7 ms  gpu   62.4 ms
+step 6   loader    1.3 ms  gpu   62.7 ms
+step 7   loader    1.3 ms  gpu   63.2 ms
+step 8   loader    1.4 ms  gpu   62.6 ms
+step 9   loader    1.6 ms  gpu   62.2 ms
+step 10  loader    1.5 ms  gpu   62.7 ms
+step 11  loader    1.6 ms  gpu   62.6 ms
+step 12  loader    1.5 ms  gpu   62.1 ms
+step 13  loader    1.8 ms  gpu   62.3 ms
+step 14  loader    1.7 ms  gpu   62.4 ms
+step 15  loader    1.4 ms  gpu   62.2 ms
+step 16  loader    1.6 ms  gpu   62.4 ms
+step 17  loader    1.3 ms  gpu   62.5 ms
+step 18  loader    1.2 ms  gpu   62.6 ms
+step 19  loader    1.7 ms  gpu   62.4 ms
+Epoch 2 finished in 18.22 seconds
+Epoch 2, average train loss=0.0065
+Validation for epoch 2 took 6.01 seconds
+Validation MSE: 0.0049
+Train MSE: 0.006526, Val MSE: 0.004945
+Saved new best model to /work/nv25/Carrie/cypress_creek/models/model_outputs/unet7_std_model_20250505_162429_epoch2.pth
+--- EPOCH 4/100 ---
+step 0   loader    1.7 ms  gpu   62.4 ms
+step 1   loader    1.1 ms  gpu   61.6 ms
+step 2   loader    1.1 ms  gpu   62.0 ms
+step 3   loader    1.1 ms  gpu   62.0 ms
+step 4   loader    1.2 ms  gpu   62.0 ms
+step 5   loader    0.9 ms  gpu   61.8 ms
+step 6   loader    0.9 ms  gpu   61.9 ms
+step 7   loader    1.3 ms  gpu   61.9 ms
+step 8   loader    1.0 ms  gpu   62.1 ms
+step 9   loader    1.1 ms  gpu   61.9 ms
+step 10  loader    1.1 ms  gpu   61.9 ms
+step 11  loader    0.9 ms  gpu   61.9 ms
+step 12  loader    1.0 ms  gpu   61.9 ms
+step 13  loader    1.1 ms  gpu   61.8 ms
+step 14  loader    1.1 ms  gpu   62.0 ms
+step 15  loader    1.0 ms  gpu   62.0 ms
+step 16  loader    1.0 ms  gpu   61.9 ms
+step 17  loader    0.9 ms  gpu   61.7 ms
+step 18  loader    1.0 ms  gpu   61.9 ms
+step 19  loader    1.1 ms  gpu   61.9 ms
+Epoch 3 finished in 18.18 seconds
+Epoch 3, average train loss=0.0056
+Validation for epoch 3 took 6.01 seconds
+Validation MSE: 0.0049
+Train MSE: 0.005610, Val MSE: 0.004903
+Saved new best model to /work/nv25/Carrie/cypress_creek/models/model_outputs/unet7_std_model_20250505_162429_epoch3.pth
+--- EPOCH 5/100 ---
+step 0   loader    2.2 ms  gpu   62.3 ms
+step 1   loader    1.0 ms  gpu   61.9 ms
+step 2   loader    0.9 ms  gpu   62.2 ms
+step 3   loader    0.9 ms  gpu   62.3 ms
+step 4   loader    1.1 ms  gpu   61.9 ms
+step 5   loader    1.1 ms  gpu   61.7 ms
+step 6   loader    1.0 ms  gpu   61.9 ms
+step 7   loader    1.1 ms  gpu   62.0 ms
+step 8   loader    1.2 ms  gpu   62.2 ms
+step 9   loader    0.9 ms  gpu   62.0 ms
+step 10  loader    0.9 ms  gpu   61.9 ms
+step 11  loader    0.9 ms  gpu   62.0 ms
+step 12  loader    0.9 ms  gpu   62.1 ms
+step 13  loader    1.0 ms  gpu   62.0 ms
+step 14  loader    1.0 ms  gpu   62.0 ms
+step 15  loader    1.1 ms  gpu   62.0 ms
+step 16  loader    1.0 ms  gpu   62.1 ms
+step 17  loader    1.1 ms  gpu   61.9 ms
+step 18  loader    1.2 ms  gpu   62.1 ms
+step 19  loader    1.0 ms  gpu   61.9 ms
+Epoch 4 finished in 18.20 seconds
+Epoch 4, average train loss=0.0054
+Validation for epoch 4 took 6.01 seconds
+Validation MSE: 0.0054
+Train MSE: 0.005355, Val MSE: 0.005363
+--- EPOCH 6/100 ---
+step 0   loader    1.3 ms  gpu   62.6 ms
+step 1   loader    1.0 ms  gpu   62.1 ms
+step 2   loader    1.1 ms  gpu   62.0 ms
+step 3   loader    0.9 ms  gpu   62.3 ms
+step 4   loader    0.9 ms  gpu   62.2 ms
+step 5   loader    0.9 ms  gpu   62.2 ms
+step 6   loader    1.0 ms  gpu   62.2 ms
+step 7   loader    1.1 ms  gpu   62.1 ms
+step 8   loader    1.2 ms  gpu   62.1 ms
+step 9   loader    1.1 ms  gpu   61.9 ms
+step 10  loader    1.0 ms  gpu   62.1 ms
+step 11  loader    1.2 ms  gpu   62.1 ms
+step 12  loader    1.0 ms  gpu   62.1 ms
+step 13  loader    1.1 ms  gpu   62.0 ms
+step 14  loader    1.0 ms  gpu   62.1 ms
+step 15  loader    1.0 ms  gpu   62.1 ms
+step 16  loader    1.0 ms  gpu   62.1 ms
+step 17  loader    0.9 ms  gpu   62.0 ms
+step 18  loader    1.0 ms  gpu   62.1 ms
+step 19  loader    1.0 ms  gpu   62.0 ms
+Epoch 5 finished in 18.24 seconds
+Epoch 5, average train loss=0.0051
+Validation for epoch 5 took 6.02 seconds
+Validation MSE: 0.0049
+Train MSE: 0.005131, Val MSE: 0.004926
+--- EPOCH 7/100 ---
+step 0   loader    1.4 ms  gpu   63.0 ms
+step 1   loader    1.6 ms  gpu   62.5 ms
+step 2   loader    1.5 ms  gpu   62.3 ms
+step 3   loader    1.1 ms  gpu   62.0 ms
+step 4   loader    1.2 ms  gpu   62.2 ms
+step 5   loader    1.1 ms  gpu   62.4 ms
+step 6   loader    0.9 ms  gpu   62.1 ms
+step 7   loader    0.9 ms  gpu   62.1 ms
+step 8   loader    1.0 ms  gpu   62.1 ms
+step 9   loader    1.1 ms  gpu   62.0 ms
+step 10  loader    0.9 ms  gpu   62.0 ms
+step 11  loader    0.9 ms  gpu   62.3 ms
+step 12  loader    1.0 ms  gpu   62.1 ms
+step 13  loader    0.9 ms  gpu   62.1 ms
+step 14  loader    1.2 ms  gpu   62.1 ms
+step 15  loader    0.9 ms  gpu   62.0 ms
+step 16  loader    1.0 ms  gpu   62.1 ms
+step 17  loader    1.0 ms  gpu   62.1 ms
+step 18  loader    1.2 ms  gpu   62.2 ms
+step 19  loader    1.1 ms  gpu   62.0 ms
+Epoch 6 finished in 18.19 seconds
+Epoch 6, average train loss=0.0050
+Validation for epoch 6 took 6.00 seconds
+Validation MSE: 0.0046
+Train MSE: 0.005027, Val MSE: 0.004602
+Saved new best model to /work/nv25/Carrie/cypress_creek/models/model_outputs/unet7_std_model_20250505_162429_epoch6.pth
+--- EPOCH 8/100 ---
+step 0   loader    1.2 ms  gpu   62.2 ms
+step 1   loader    0.9 ms  gpu   61.8 ms
+step 2   loader    1.0 ms  gpu   62.0 ms
+step 3   loader    1.1 ms  gpu   62.0 ms
+step 4   loader    0.9 ms  gpu   61.9 ms
+step 5   loader    1.1 ms  gpu   62.0 ms
+step 6   loader    0.9 ms  gpu   61.8 ms
+step 7   loader    0.9 ms  gpu   62.2 ms
+step 8   loader    1.0 ms  gpu   61.9 ms
+step 9   loader    1.0 ms  gpu   62.0 ms
+step 10  loader    0.9 ms  gpu   62.0 ms
+step 11  loader    1.1 ms  gpu   62.0 ms
+step 12  loader    1.2 ms  gpu   62.1 ms
+step 13  loader    1.1 ms  gpu   62.1 ms
+step 14  loader    1.0 ms  gpu   62.0 ms
+step 15  loader    0.9 ms  gpu   61.9 ms
+step 16  loader    0.9 ms  gpu   62.2 ms
+step 17  loader    1.0 ms  gpu   62.0 ms
+step 18  loader    1.0 ms  gpu   62.1 ms
+step 19  loader    0.9 ms  gpu   62.1 ms
+Epoch 7 finished in 18.18 seconds
+Epoch 7, average train loss=0.0049
+Validation for epoch 7 took 6.02 seconds
+Validation MSE: 0.0051
+Train MSE: 0.004918, Val MSE: 0.005140
+--- EPOCH 9/100 ---
+step 0   loader    1.4 ms  gpu   62.8 ms
+step 1   loader    1.2 ms  gpu   62.1 ms
+step 2   loader    1.0 ms  gpu   62.1 ms
+step 3   loader    1.1 ms  gpu   62.0 ms
+step 4   loader    1.1 ms  gpu   62.1 ms
+step 5   loader    0.9 ms  gpu   62.0 ms
+step 6   loader    1.0 ms  gpu   62.0 ms
+step 7   loader    1.0 ms  gpu   61.9 ms
+step 8   loader    1.0 ms  gpu   62.2 ms
+step 9   loader    1.1 ms  gpu   62.1 ms
+step 10  loader    1.1 ms  gpu   62.3 ms
+step 11  loader    1.1 ms  gpu   62.1 ms
+step 12  loader    1.1 ms  gpu   62.0 ms
+step 13  loader    1.1 ms  gpu   62.1 ms
+step 14  loader    1.0 ms  gpu   62.2 ms
+step 15  loader    1.2 ms  gpu   62.1 ms
+step 16  loader    1.0 ms  gpu   62.1 ms
+step 17  loader    1.0 ms  gpu   61.9 ms
+step 18  loader    1.1 ms  gpu   62.0 ms
+step 19  loader    1.0 ms  gpu   62.1 ms
+Epoch 8 finished in 18.18 seconds
+Epoch 8, average train loss=0.0048
+Validation for epoch 8 took 6.01 seconds
+Validation MSE: 0.0049
+Train MSE: 0.004841, Val MSE: 0.004874
+--- EPOCH 10/100 ---
+step 0   loader    1.6 ms  gpu   62.7 ms
+step 1   loader    1.0 ms  gpu   61.9 ms
+step 2   loader    1.1 ms  gpu   62.2 ms
+step 3   loader    0.9 ms  gpu   62.1 ms
+step 4   loader    1.1 ms  gpu   62.0 ms
+step 5   loader    1.0 ms  gpu   62.0 ms
+step 6   loader    1.1 ms  gpu   62.0 ms
+step 7   loader    1.0 ms  gpu   62.1 ms
+step 8   loader    1.1 ms  gpu   62.1 ms
+step 9   loader    1.0 ms  gpu   62.0 ms
+step 10  loader    1.1 ms  gpu   62.4 ms
+step 11  loader    1.0 ms  gpu   62.4 ms
+step 12  loader    0.9 ms  gpu   62.0 ms
+step 13  loader    0.9 ms  gpu   62.4 ms
+step 14  loader    0.9 ms  gpu   62.1 ms
+step 15  loader    0.9 ms  gpu   62.4 ms
+step 16  loader    1.1 ms  gpu   62.1 ms
+step 17  loader    1.0 ms  gpu   62.1 ms
+step 18  loader    0.9 ms  gpu   62.0 ms
+step 19  loader    0.9 ms  gpu   62.3 ms
+Epoch 9 finished in 18.18 seconds
+Epoch 9, average train loss=0.0048
+Validation for epoch 9 took 6.00 seconds
+Validation MSE: 0.0046
+Train MSE: 0.004783, Val MSE: 0.004569
+Saved new best model to /work/nv25/Carrie/cypress_creek/models/model_outputs/unet7_std_model_20250505_162429_epoch9.pth
+--- EPOCH 11/100 ---
+step 0   loader    1.6 ms  gpu   62.3 ms
+step 1   loader    1.1 ms  gpu   61.6 ms
+step 2   loader    1.2 ms  gpu   61.8 ms
+step 3   loader    1.0 ms  gpu   61.7 ms
+step 4   loader    1.0 ms  gpu   61.9 ms
+step 5   loader    1.1 ms  gpu   61.9 ms
+step 6   loader    1.0 ms  gpu   61.9 ms
+step 7   loader    1.0 ms  gpu   61.7 ms
+step 8   loader    0.9 ms  gpu   61.9 ms
+step 9   loader    1.3 ms  gpu   62.1 ms
+step 10  loader    1.0 ms  gpu   61.9 ms
+step 11  loader    0.9 ms  gpu   61.8 ms
+step 12  loader    1.1 ms  gpu   62.1 ms
+step 13  loader    0.9 ms  gpu   62.1 ms
+step 14  loader    1.2 ms  gpu   61.8 ms
+step 15  loader    1.1 ms  gpu   62.1 ms
+step 16  loader    0.9 ms  gpu   61.8 ms
+step 17  loader    0.8 ms  gpu   62.0 ms
+step 18  loader    1.1 ms  gpu   62.1 ms
+step 19  loader    0.9 ms  gpu   61.9 ms
+Epoch 10 finished in 18.19 seconds
+Epoch 10, average train loss=0.0047
+Validation for epoch 10 took 6.03 seconds
+Validation MSE: 0.0047
+Train MSE: 0.004729, Val MSE: 0.004749
+--- EPOCH 12/100 ---
+step 0   loader    1.3 ms  gpu   62.8 ms
+step 1   loader    1.0 ms  gpu   62.0 ms
+step 2   loader    1.0 ms  gpu   62.0 ms
+step 3   loader    0.9 ms  gpu   62.0 ms
+step 4   loader    0.9 ms  gpu   62.2 ms
+step 5   loader    0.9 ms  gpu   62.0 ms
+step 6   loader    1.1 ms  gpu   62.3 ms
+step 7   loader    1.3 ms  gpu   62.2 ms
+step 8   loader    0.9 ms  gpu   62.0 ms
+step 9   loader    1.0 ms  gpu   62.0 ms
+step 10  loader    1.0 ms  gpu   62.1 ms
+step 11  loader    1.1 ms  gpu   62.2 ms
+step 12  loader    1.0 ms  gpu   62.1 ms
+step 13  loader    1.0 ms  gpu   61.9 ms
+step 14  loader    1.0 ms  gpu   61.9 ms
+step 15  loader    1.1 ms  gpu   62.0 ms
+step 16  loader    1.3 ms  gpu   62.2 ms
+step 17  loader    0.9 ms  gpu   62.1 ms
+step 18  loader    0.9 ms  gpu   62.2 ms
+step 19  loader    0.9 ms  gpu   62.0 ms
+Epoch 11 finished in 18.19 seconds
+Epoch 11, average train loss=0.0046
+Validation for epoch 11 took 6.04 seconds
+Validation MSE: 0.0047
+Train MSE: 0.004613, Val MSE: 0.004721
+--- EPOCH 13/100 ---
+step 0   loader    1.3 ms  gpu   63.3 ms
+step 1   loader    1.0 ms  gpu   62.2 ms
+step 2   loader    1.0 ms  gpu   62.1 ms
+step 3   loader    1.2 ms  gpu   62.0 ms
+step 4   loader    1.1 ms  gpu   62.3 ms
+step 5   loader    1.3 ms  gpu   62.0 ms
+step 6   loader    0.9 ms  gpu   62.0 ms
+step 7   loader    1.1 ms  gpu   62.1 ms
+step 8   loader    1.1 ms  gpu   62.0 ms
+step 9   loader    1.1 ms  gpu   62.2 ms
+step 10  loader    1.1 ms  gpu   63.0 ms
+step 11  loader    1.0 ms  gpu   62.2 ms
+step 12  loader    1.2 ms  gpu   62.1 ms
+step 13  loader    1.1 ms  gpu   62.0 ms
+step 14  loader    1.1 ms  gpu   62.1 ms
+step 15  loader    0.9 ms  gpu   62.2 ms
+step 16  loader    1.1 ms  gpu   62.2 ms
+step 17  loader    1.0 ms  gpu   62.0 ms
+step 18  loader    1.0 ms  gpu   62.1 ms
+step 19  loader    1.1 ms  gpu   62.1 ms
+Epoch 12 finished in 18.19 seconds
+Epoch 12, average train loss=0.0046
+Validation for epoch 12 took 6.01 seconds
+Validation MSE: 0.0047
+Train MSE: 0.004551, Val MSE: 0.004710
+--- EPOCH 14/100 ---
+step 0   loader    1.2 ms  gpu   62.8 ms
+step 1   loader    1.0 ms  gpu   62.0 ms
+step 2   loader    1.1 ms  gpu   62.1 ms
+step 3   loader    1.1 ms  gpu   62.0 ms
+step 4   loader    1.1 ms  gpu   62.1 ms
+step 5   loader    1.0 ms  gpu   62.0 ms
+step 6   loader    1.0 ms  gpu   62.0 ms
+step 7   loader    1.1 ms  gpu   62.0 ms
+step 8   loader    1.3 ms  gpu   62.1 ms
+step 9   loader    0.9 ms  gpu   62.4 ms
+step 10  loader    1.1 ms  gpu   62.4 ms
+step 11  loader    1.0 ms  gpu   62.0 ms
+step 12  loader    1.0 ms  gpu   62.0 ms
+step 13  loader    1.1 ms  gpu   61.9 ms
+step 14  loader    1.0 ms  gpu   62.4 ms
+step 15  loader    1.2 ms  gpu   62.1 ms
+step 16  loader    1.1 ms  gpu   62.0 ms
+step 17  loader    1.2 ms  gpu   62.0 ms
+step 18  loader    0.9 ms  gpu   62.0 ms
+step 19  loader    1.1 ms  gpu   62.0 ms
+Epoch 13 finished in 18.19 seconds
+Epoch 13, average train loss=0.0045
+Validation for epoch 13 took 6.01 seconds
+Validation MSE: 0.0049
+Train MSE: 0.004526, Val MSE: 0.004879
+--- EPOCH 15/100 ---
+step 0   loader    1.2 ms  gpu   62.7 ms
+step 1   loader    1.2 ms  gpu   62.0 ms
+step 2   loader    1.0 ms  gpu   62.1 ms
+step 3   loader    1.0 ms  gpu   62.0 ms
+step 4   loader    0.9 ms  gpu   62.1 ms
+step 5   loader    1.1 ms  gpu   62.0 ms
+step 6   loader    1.0 ms  gpu   62.2 ms
+step 7   loader    1.1 ms  gpu   62.1 ms
+step 8   loader    1.2 ms  gpu   62.0 ms
+step 9   loader    0.9 ms  gpu   62.3 ms
+step 10  loader    1.1 ms  gpu   62.3 ms
+step 11  loader    1.1 ms  gpu   62.1 ms
+step 12  loader    1.0 ms  gpu   62.2 ms
+step 13  loader    0.9 ms  gpu   62.0 ms
+step 14  loader    0.9 ms  gpu   62.2 ms
+step 15  loader    1.1 ms  gpu   61.9 ms
+step 16  loader    0.9 ms  gpu   62.1 ms
+step 17  loader    1.0 ms  gpu   62.0 ms
+step 18  loader    0.9 ms  gpu   62.1 ms
+step 19  loader    0.9 ms  gpu   62.0 ms
+Epoch 14 finished in 18.21 seconds
+Epoch 14, average train loss=0.0045
+Validation for epoch 14 took 5.99 seconds
+Validation MSE: 0.0051
+Train MSE: 0.004499, Val MSE: 0.005117
+--- EPOCH 16/100 ---
+step 0   loader    1.0 ms  gpu   62.7 ms
+step 1   loader    0.9 ms  gpu   61.9 ms
+step 2   loader    0.9 ms  gpu   62.1 ms
+step 3   loader    0.9 ms  gpu   62.0 ms
+step 4   loader    0.9 ms  gpu   62.2 ms
+step 5   loader    0.9 ms  gpu   62.0 ms
+step 6   loader    0.9 ms  gpu   62.6 ms
+step 7   loader    0.9 ms  gpu   62.2 ms
+step 8   loader    0.9 ms  gpu   62.6 ms
+step 9   loader    0.9 ms  gpu   62.0 ms
+step 10  loader    0.9 ms  gpu   62.2 ms
+step 11  loader    0.8 ms  gpu   62.1 ms
+step 12  loader    1.1 ms  gpu   62.3 ms
+step 13  loader    1.0 ms  gpu   62.5 ms
+step 14  loader    1.0 ms  gpu   62.8 ms
+step 15  loader    1.0 ms  gpu   62.3 ms
+step 16  loader    0.9 ms  gpu   62.5 ms
+step 17  loader    0.9 ms  gpu   62.0 ms
+step 18  loader    0.9 ms  gpu   62.2 ms
+step 19  loader    0.9 ms  gpu   61.9 ms
+Epoch 15 finished in 18.22 seconds
+Epoch 15, average train loss=0.0045
+Validation for epoch 15 took 6.01 seconds
+Validation MSE: 0.0048
+Train MSE: 0.004466, Val MSE: 0.004766
+--- EPOCH 17/100 ---
+step 0   loader    1.0 ms  gpu   62.6 ms
+step 1   loader    0.9 ms  gpu   62.0 ms
+step 2   loader    1.0 ms  gpu   62.0 ms
+step 3   loader    1.1 ms  gpu   62.0 ms
+step 4   loader    0.9 ms  gpu   62.1 ms
+step 5   loader    0.9 ms  gpu   62.2 ms
+step 6   loader    0.9 ms  gpu   62.2 ms
+step 7   loader    1.0 ms  gpu   62.3 ms
+step 8   loader    1.0 ms  gpu   62.1 ms
+step 9   loader    0.9 ms  gpu   62.2 ms
+step 10  loader    0.9 ms  gpu   62.1 ms
+step 11  loader    0.9 ms  gpu   62.0 ms
+step 12  loader    0.9 ms  gpu   62.1 ms
+step 13  loader    0.9 ms  gpu   62.0 ms
+step 14  loader    0.9 ms  gpu   62.0 ms
+step 15  loader    0.9 ms  gpu   62.1 ms
+step 16  loader    0.9 ms  gpu   62.0 ms
+step 17  loader    0.9 ms  gpu   62.1 ms
+step 18  loader    0.9 ms  gpu   62.2 ms
+step 19  loader    0.9 ms  gpu   62.0 ms
+Epoch 16 finished in 18.19 seconds
+Epoch 16, average train loss=0.0044
+Validation for epoch 16 took 6.00 seconds
+Validation MSE: 0.0045
+Train MSE: 0.004372, Val MSE: 0.004487
+Saved new best model to /work/nv25/Carrie/cypress_creek/models/model_outputs/unet7_std_model_20250505_162429_epoch16.pth
+--- EPOCH 18/100 ---
+step 0   loader    1.8 ms  gpu   62.5 ms
+step 1   loader    1.1 ms  gpu   61.8 ms
+step 2   loader    1.1 ms  gpu   61.9 ms
+step 3   loader    1.1 ms  gpu   61.8 ms
+step 4   loader    1.2 ms  gpu   62.0 ms
+step 5   loader    1.1 ms  gpu   61.9 ms
+step 6   loader    1.0 ms  gpu   61.9 ms
+step 7   loader    1.1 ms  gpu   62.0 ms
+step 8   loader    1.0 ms  gpu   62.1 ms
+step 9   loader    0.9 ms  gpu   62.0 ms
+step 10  loader    1.0 ms  gpu   62.1 ms
+step 11  loader    1.1 ms  gpu   61.9 ms
+step 12  loader    1.2 ms  gpu   61.9 ms
+step 13  loader    1.1 ms  gpu   62.0 ms
+step 14  loader    1.1 ms  gpu   62.3 ms
+step 15  loader    0.8 ms  gpu   62.1 ms
+step 16  loader    1.0 ms  gpu   62.1 ms
+step 17  loader    1.0 ms  gpu   61.9 ms
+step 18  loader    1.2 ms  gpu   62.0 ms
+step 19  loader    1.0 ms  gpu   62.0 ms
+Epoch 17 finished in 18.21 seconds
+Epoch 17, average train loss=0.0044
+Validation for epoch 17 took 6.00 seconds
+Validation MSE: 0.0048
+Train MSE: 0.004364, Val MSE: 0.004792
+--- EPOCH 19/100 ---
+step 0   loader    1.0 ms  gpu   62.7 ms
+step 1   loader    1.1 ms  gpu   62.1 ms
+step 2   loader    1.0 ms  gpu   62.1 ms
+step 3   loader    1.1 ms  gpu   62.1 ms
+step 4   loader    1.0 ms  gpu   62.2 ms
+step 5   loader    0.9 ms  gpu   62.2 ms
+step 6   loader    0.9 ms  gpu   62.2 ms
+step 7   loader    1.1 ms  gpu   62.1 ms
+step 8   loader    0.9 ms  gpu   62.1 ms
+step 9   loader    1.0 ms  gpu   62.0 ms
+step 10  loader    1.0 ms  gpu   62.0 ms
+step 11  loader    1.0 ms  gpu   62.2 ms
+step 12  loader    0.9 ms  gpu   62.1 ms
+step 13  loader    0.9 ms  gpu   62.1 ms
+step 14  loader    1.0 ms  gpu   62.1 ms
+step 15  loader    1.1 ms  gpu   61.9 ms
+step 16  loader    0.9 ms  gpu   62.2 ms
+step 17  loader    0.8 ms  gpu   62.1 ms
+step 18  loader    0.8 ms  gpu   62.2 ms
+step 19  loader    1.1 ms  gpu   62.0 ms
+Epoch 18 finished in 18.18 seconds
+Epoch 18, average train loss=0.0043
+Validation for epoch 18 took 6.01 seconds
+Validation MSE: 0.0047
+Train MSE: 0.004307, Val MSE: 0.004735
+--- EPOCH 20/100 ---
+step 0   loader    1.4 ms  gpu   62.7 ms
+step 1   loader    1.1 ms  gpu   61.9 ms
+step 2   loader    1.2 ms  gpu   62.0 ms
+step 3   loader    1.1 ms  gpu   62.0 ms
+step 4   loader    0.9 ms  gpu   62.1 ms
+step 5   loader    1.2 ms  gpu   62.3 ms
+step 6   loader    1.0 ms  gpu   62.1 ms
+step 7   loader    1.0 ms  gpu   61.9 ms
+step 8   loader    1.1 ms  gpu   62.0 ms
+step 9   loader    1.1 ms  gpu   62.4 ms
+step 10  loader    1.1 ms  gpu   62.0 ms
+step 11  loader    0.9 ms  gpu   62.0 ms
+step 12  loader    0.9 ms  gpu   62.0 ms
+step 13  loader    0.9 ms  gpu   62.1 ms
+step 14  loader    1.0 ms  gpu   62.1 ms
+step 15  loader    1.0 ms  gpu   62.0 ms
+step 16  loader    1.0 ms  gpu   62.1 ms
+step 17  loader    1.0 ms  gpu   62.1 ms
+step 18  loader    1.1 ms  gpu   62.2 ms
+step 19  loader    0.9 ms  gpu   61.9 ms
+Epoch 19 finished in 18.18 seconds
+Epoch 19, average train loss=0.0043
+Validation for epoch 19 took 6.01 seconds
+Validation MSE: 0.0051
+Train MSE: 0.004276, Val MSE: 0.005131
+--- EPOCH 21/100 ---
+step 0   loader    1.2 ms  gpu   62.8 ms
+step 1   loader    1.2 ms  gpu   61.9 ms
+step 2   loader    1.1 ms  gpu   62.1 ms
+step 3   loader    1.1 ms  gpu   62.1 ms
+step 4   loader    1.2 ms  gpu   62.1 ms
+step 5   loader    1.0 ms  gpu   62.0 ms
+step 6   loader    1.1 ms  gpu   62.1 ms
+step 7   loader    1.0 ms  gpu   62.0 ms
+step 8   loader    1.1 ms  gpu   63.4 ms
+step 9   loader    1.0 ms  gpu   62.3 ms
+step 10  loader    1.0 ms  gpu   62.1 ms
+step 11  loader    1.1 ms  gpu   62.5 ms
+step 12  loader    0.9 ms  gpu   62.1 ms
+step 13  loader    0.9 ms  gpu   62.1 ms
+step 14  loader    1.1 ms  gpu   62.3 ms
+step 15  loader    1.3 ms  gpu   62.1 ms
+step 16  loader    1.3 ms  gpu   62.1 ms
+step 17  loader    1.1 ms  gpu   62.0 ms
+step 18  loader    1.0 ms  gpu   61.9 ms
+step 19  loader    1.0 ms  gpu   61.9 ms
+Epoch 20 finished in 18.18 seconds
+Epoch 20, average train loss=0.0042
+Validation for epoch 20 took 6.01 seconds
+Validation MSE: 0.0050
+Train MSE: 0.004209, Val MSE: 0.005049
+--- EPOCH 22/100 ---
+step 0   loader    1.0 ms  gpu   62.6 ms
+step 1   loader    1.1 ms  gpu   62.0 ms
+step 2   loader    1.0 ms  gpu   62.1 ms
+step 3   loader    1.1 ms  gpu   62.1 ms
+step 4   loader    0.9 ms  gpu   61.9 ms
+step 5   loader    0.9 ms  gpu   62.1 ms
+step 6   loader    0.9 ms  gpu   62.2 ms
+step 7   loader    0.9 ms  gpu   62.3 ms
+step 8   loader    1.0 ms  gpu   62.3 ms
+step 9   loader    1.0 ms  gpu   61.9 ms
+step 10  loader    1.0 ms  gpu   62.0 ms
+step 11  loader    1.0 ms  gpu   61.9 ms
+step 12  loader    1.0 ms  gpu   62.3 ms
+step 13  loader    1.1 ms  gpu   62.1 ms
+step 14  loader    1.1 ms  gpu   62.1 ms
+step 15  loader    1.0 ms  gpu   61.9 ms
+step 16  loader    0.9 ms  gpu   62.0 ms
+step 17  loader    1.3 ms  gpu   62.0 ms
+step 18  loader    1.1 ms  gpu   62.1 ms
+step 19  loader    1.0 ms  gpu   62.0 ms
+Epoch 21 finished in 18.17 seconds
+Epoch 21, average train loss=0.0041
+Validation for epoch 21 took 5.99 seconds
+Validation MSE: 0.0046
+Train MSE: 0.004127, Val MSE: 0.004590
+--- EPOCH 23/100 ---
+step 0   loader    1.1 ms  gpu   63.0 ms
+step 1   loader    0.9 ms  gpu   62.1 ms
+step 2   loader    0.9 ms  gpu   62.2 ms
+step 3   loader    1.1 ms  gpu   62.0 ms
+step 4   loader    0.9 ms  gpu   62.3 ms
+step 5   loader    1.0 ms  gpu   62.2 ms
+step 6   loader    0.8 ms  gpu   61.9 ms
+step 7   loader    0.9 ms  gpu   62.3 ms
+step 8   loader    0.8 ms  gpu   62.1 ms
+step 9   loader    1.0 ms  gpu   62.5 ms
+step 10  loader    1.0 ms  gpu   62.3 ms
+step 11  loader    0.8 ms  gpu   61.9 ms
+step 12  loader    0.9 ms  gpu   62.1 ms
+step 13  loader    0.8 ms  gpu   62.1 ms
+step 14  loader    0.9 ms  gpu   62.1 ms
+step 15  loader    1.2 ms  gpu   62.0 ms
+step 16  loader    0.8 ms  gpu   62.1 ms
+step 17  loader    0.8 ms  gpu   61.9 ms
+step 18  loader    0.9 ms  gpu   62.2 ms
+step 19  loader    1.1 ms  gpu   62.0 ms
+Epoch 22 finished in 18.19 seconds
+Epoch 22, average train loss=0.0041
+Validation for epoch 22 took 6.00 seconds
+Validation MSE: 0.0043
+Train MSE: 0.004096, Val MSE: 0.004319
+Saved new best model to /work/nv25/Carrie/cypress_creek/models/model_outputs/unet7_std_model_20250505_162429_epoch22.pth
+--- EPOCH 24/100 ---
+step 0   loader    1.7 ms  gpu   62.3 ms
+step 1   loader    1.0 ms  gpu   61.6 ms
+step 2   loader    1.1 ms  gpu   62.1 ms
+step 3   loader    1.2 ms  gpu   62.2 ms
+step 4   loader    0.9 ms  gpu   61.8 ms
+step 5   loader    1.2 ms  gpu   61.7 ms
+step 6   loader    1.2 ms  gpu   61.8 ms
+step 7   loader    1.0 ms  gpu   62.0 ms
+step 8   loader    1.3 ms  gpu   62.0 ms
+step 9   loader    0.9 ms  gpu   61.8 ms
+step 10  loader    1.0 ms  gpu   61.8 ms
+step 11  loader    0.9 ms  gpu   61.8 ms
+step 12  loader    0.9 ms  gpu   62.1 ms
+step 13  loader    0.9 ms  gpu   61.9 ms
+step 14  loader    0.8 ms  gpu   62.2 ms
+step 15  loader    1.0 ms  gpu   62.0 ms
+step 16  loader    1.0 ms  gpu   62.0 ms
+step 17  loader    1.0 ms  gpu   61.9 ms
+step 18  loader    1.1 ms  gpu   61.9 ms
+step 19  loader    1.1 ms  gpu   61.9 ms
+Epoch 23 finished in 18.36 seconds
+Epoch 23, average train loss=0.0041
+Validation for epoch 23 took 6.02 seconds
+Validation MSE: 0.0049
+Train MSE: 0.004081, Val MSE: 0.004853
+--- EPOCH 25/100 ---
+step 0   loader    1.0 ms  gpu   62.9 ms
+step 1   loader    1.1 ms  gpu   62.0 ms
+step 2   loader    1.3 ms  gpu   62.0 ms
+step 3   loader    0.9 ms  gpu   62.0 ms
+step 4   loader    1.2 ms  gpu   62.1 ms
+step 5   loader    1.1 ms  gpu   62.0 ms
+step 6   loader    0.9 ms  gpu   61.9 ms
+step 7   loader    1.1 ms  gpu   61.9 ms
+step 8   loader    1.0 ms  gpu   62.0 ms
+step 9   loader    1.1 ms  gpu   61.9 ms
+step 10  loader    1.0 ms  gpu   62.1 ms
+step 11  loader    1.3 ms  gpu   62.0 ms
+step 12  loader    1.0 ms  gpu   62.1 ms
+step 13  loader    0.8 ms  gpu   62.0 ms
+step 14  loader    1.0 ms  gpu   62.0 ms
+step 15  loader    1.1 ms  gpu   61.9 ms
+step 16  loader    0.9 ms  gpu   62.1 ms
+step 17  loader    0.9 ms  gpu   62.3 ms
+step 18  loader    1.0 ms  gpu   62.2 ms
+step 19  loader    1.1 ms  gpu   61.9 ms
+Epoch 24 finished in 18.23 seconds
+Epoch 24, average train loss=0.0040
+Validation for epoch 24 took 6.01 seconds
+Validation MSE: 0.0052
+Train MSE: 0.003993, Val MSE: 0.005246
+--- EPOCH 26/100 ---
+step 0   loader    1.1 ms  gpu   62.6 ms
+step 1   loader    0.9 ms  gpu   62.3 ms
+step 2   loader    0.9 ms  gpu   62.0 ms
+step 3   loader    0.9 ms  gpu   61.9 ms
+step 4   loader    1.0 ms  gpu   62.0 ms
+step 5   loader    1.1 ms  gpu   61.9 ms
+step 6   loader    0.9 ms  gpu   62.2 ms
+step 7   loader    1.3 ms  gpu   61.9 ms
+step 8   loader    0.9 ms  gpu   62.2 ms
+step 9   loader    1.0 ms  gpu   62.0 ms
+step 10  loader    0.9 ms  gpu   62.4 ms
+step 11  loader    1.3 ms  gpu   62.3 ms
+step 12  loader    0.9 ms  gpu   62.1 ms
+step 13  loader    1.1 ms  gpu   62.3 ms
+step 14  loader    0.8 ms  gpu   62.0 ms
+step 15  loader    0.9 ms  gpu   62.2 ms
+step 16  loader    1.1 ms  gpu   62.1 ms
+step 17  loader    0.9 ms  gpu   61.8 ms
+step 18  loader    0.8 ms  gpu   62.0 ms
+step 19  loader    1.0 ms  gpu   62.2 ms
+Epoch 25 finished in 18.17 seconds
+Epoch 25, average train loss=0.0040
+Validation for epoch 25 took 5.99 seconds
+Validation MSE: 0.0053
+Train MSE: 0.003994, Val MSE: 0.005251
+--- EPOCH 27/100 ---
+step 0   loader    1.4 ms  gpu   62.8 ms
+step 1   loader    1.4 ms  gpu   62.1 ms
+step 2   loader    1.1 ms  gpu   62.1 ms
+step 3   loader    1.1 ms  gpu   61.9 ms
+step 4   loader    1.1 ms  gpu   62.1 ms
+step 5   loader    1.0 ms  gpu   61.9 ms
+step 6   loader    1.1 ms  gpu   62.0 ms
+step 7   loader    1.1 ms  gpu   62.0 ms
+step 8   loader    1.0 ms  gpu   62.1 ms
+step 9   loader    1.0 ms  gpu   62.0 ms
+step 10  loader    1.2 ms  gpu   62.0 ms
+step 11  loader    1.0 ms  gpu   62.2 ms
+step 12  loader    1.4 ms  gpu   62.3 ms
+step 13  loader    1.1 ms  gpu   62.0 ms
+step 14  loader    1.0 ms  gpu   62.1 ms
+step 15  loader    0.9 ms  gpu   62.0 ms
+step 16  loader    1.1 ms  gpu   62.2 ms
+step 17  loader    0.9 ms  gpu   62.1 ms
+step 18  loader    1.1 ms  gpu   62.1 ms
+step 19  loader    1.0 ms  gpu   62.0 ms
+Epoch 26 finished in 18.18 seconds
+Epoch 26, average train loss=0.0039
+Validation for epoch 26 took 6.00 seconds
+Validation MSE: 0.0049
+Train MSE: 0.003925, Val MSE: 0.004910
+--- EPOCH 28/100 ---
+step 0   loader    1.7 ms  gpu   62.9 ms
+step 1   loader    1.1 ms  gpu   61.9 ms
+step 2   loader    1.1 ms  gpu   62.0 ms
+step 3   loader    1.1 ms  gpu   62.0 ms
+step 4   loader    0.9 ms  gpu   62.0 ms
+step 5   loader    0.9 ms  gpu   62.1 ms
+step 6   loader    1.1 ms  gpu   62.1 ms
+step 7   loader    1.2 ms  gpu   61.9 ms
+step 8   loader    1.2 ms  gpu   62.0 ms
+step 9   loader    1.0 ms  gpu   62.0 ms
+step 10  loader    1.1 ms  gpu   62.1 ms
+step 11  loader    0.9 ms  gpu   62.0 ms
+step 12  loader    0.9 ms  gpu   62.2 ms
+step 13  loader    1.2 ms  gpu   61.9 ms
+step 14  loader    1.0 ms  gpu   62.1 ms
+step 15  loader    1.0 ms  gpu   62.1 ms
+step 16  loader    0.9 ms  gpu   62.1 ms
+step 17  loader    1.1 ms  gpu   62.0 ms
+step 18  loader    1.1 ms  gpu   62.2 ms
+step 19  loader    0.9 ms  gpu   61.8 ms
+Epoch 27 finished in 18.18 seconds
+Epoch 27, average train loss=0.0039
+Validation for epoch 27 took 6.00 seconds
+Validation MSE: 0.0044
+Train MSE: 0.003920, Val MSE: 0.004410
+--- EPOCH 29/100 ---
+step 0   loader    1.3 ms  gpu   62.7 ms
+step 1   loader    0.9 ms  gpu   62.0 ms
+step 2   loader    0.9 ms  gpu   62.2 ms
+step 3   loader    1.0 ms  gpu   62.0 ms
+step 4   loader    1.0 ms  gpu   62.3 ms
+step 5   loader    1.0 ms  gpu   62.3 ms
+step 6   loader    0.9 ms  gpu   62.0 ms
+step 7   loader    0.9 ms  gpu   62.0 ms
+step 8   loader    1.1 ms  gpu   62.0 ms
+step 9   loader    1.0 ms  gpu   62.1 ms
+step 10  loader    1.1 ms  gpu   62.0 ms
+step 11  loader    1.0 ms  gpu   62.1 ms
+step 12  loader    1.1 ms  gpu   62.1 ms
+step 13  loader    0.9 ms  gpu   62.1 ms
+step 14  loader    0.9 ms  gpu   62.2 ms
+step 15  loader    1.0 ms  gpu   62.0 ms
+step 16  loader    1.0 ms  gpu   62.0 ms
+step 17  loader    1.2 ms  gpu   62.0 ms
+step 18  loader    1.3 ms  gpu   62.1 ms
+step 19  loader    1.2 ms  gpu   62.0 ms
+Epoch 28 finished in 18.17 seconds
+Epoch 28, average train loss=0.0039
+Validation for epoch 28 took 6.01 seconds
+Validation MSE: 0.0045
+Train MSE: 0.003868, Val MSE: 0.004462
+--- EPOCH 30/100 ---
+step 0   loader    1.6 ms  gpu   62.7 ms
+step 1   loader    1.2 ms  gpu   61.9 ms
+step 2   loader    1.0 ms  gpu   62.2 ms
+step 3   loader    0.9 ms  gpu   61.9 ms
+step 4   loader    0.9 ms  gpu   62.1 ms
+step 5   loader    1.0 ms  gpu   62.0 ms
+step 6   loader    1.1 ms  gpu   62.0 ms
+step 7   loader    1.1 ms  gpu   62.0 ms
+step 8   loader    1.1 ms  gpu   62.0 ms
+step 9   loader    0.9 ms  gpu   62.3 ms
+step 10  loader    1.0 ms  gpu   62.3 ms
+step 11  loader    1.0 ms  gpu   62.0 ms
+step 12  loader    1.0 ms  gpu   62.0 ms
+step 13  loader    1.1 ms  gpu   62.0 ms
+step 14  loader    0.9 ms  gpu   62.3 ms
+step 15  loader    1.0 ms  gpu   62.1 ms
+step 16  loader    1.2 ms  gpu   62.1 ms
+step 17  loader    0.8 ms  gpu   62.1 ms
+step 18  loader    1.0 ms  gpu   62.0 ms
+step 19  loader    0.9 ms  gpu   62.1 ms
+Epoch 29 finished in 18.17 seconds
+Epoch 29, average train loss=0.0038
+Validation for epoch 29 took 6.00 seconds
+Validation MSE: 0.0048
+Train MSE: 0.003845, Val MSE: 0.004844
+--- EPOCH 31/100 ---
+step 0   loader    1.0 ms  gpu   62.5 ms
+step 1   loader    0.9 ms  gpu   62.2 ms
+step 2   loader    1.0 ms  gpu   62.0 ms
+step 3   loader    1.1 ms  gpu   61.9 ms
+step 4   loader    1.0 ms  gpu   62.1 ms
+step 5   loader    0.9 ms  gpu   62.1 ms
+step 6   loader    1.0 ms  gpu   62.1 ms
+step 7   loader    1.1 ms  gpu   62.0 ms
+step 8   loader    0.9 ms  gpu   61.9 ms
+step 9   loader    1.0 ms  gpu   61.9 ms
+step 10  loader    1.0 ms  gpu   62.2 ms
+step 11  loader    1.2 ms  gpu   62.2 ms
+step 12  loader    1.1 ms  gpu   62.1 ms
+step 13  loader    0.9 ms  gpu   62.0 ms
+step 14  loader    1.0 ms  gpu   62.0 ms
+step 15  loader    1.5 ms  gpu   62.0 ms
+step 16  loader    0.9 ms  gpu   62.0 ms
+step 17  loader    1.1 ms  gpu   62.0 ms
+step 18  loader    0.9 ms  gpu   62.0 ms
+step 19  loader    0.9 ms  gpu   62.1 ms
+Epoch 30 finished in 18.17 seconds
+Epoch 30, average train loss=0.0039
+Validation for epoch 30 took 6.01 seconds
+Validation MSE: 0.0045
+Train MSE: 0.003851, Val MSE: 0.004549
+--- EPOCH 32/100 ---
+step 0   loader    1.2 ms  gpu   62.7 ms
+step 1   loader    1.1 ms  gpu   62.0 ms
+step 2   loader    0.9 ms  gpu   62.3 ms
+step 3   loader    0.8 ms  gpu   62.1 ms
+step 4   loader    1.1 ms  gpu   62.1 ms
+step 5   loader    1.0 ms  gpu   61.9 ms
+step 6   loader    0.9 ms  gpu   62.0 ms
+step 7   loader    0.9 ms  gpu   62.1 ms
+step 8   loader    1.1 ms  gpu   62.1 ms
+step 9   loader    0.9 ms  gpu   62.0 ms
+step 10  loader    1.2 ms  gpu   62.3 ms
+step 11  loader    1.2 ms  gpu   62.1 ms
+step 12  loader    0.9 ms  gpu   62.0 ms
+step 13  loader    1.0 ms  gpu   62.0 ms
+step 14  loader    1.1 ms  gpu   62.1 ms
+step 15  loader    0.9 ms  gpu   62.0 ms
+step 16  loader    1.0 ms  gpu   62.1 ms
+step 17  loader    1.2 ms  gpu   61.9 ms
+step 18  loader    1.0 ms  gpu   62.0 ms
+step 19  loader    0.9 ms  gpu   62.1 ms
+Epoch 31 finished in 18.21 seconds
+Epoch 31, average train loss=0.0038
+Validation for epoch 31 took 6.01 seconds
+Validation MSE: 0.0045
+Train MSE: 0.003781, Val MSE: 0.004453
+--- EPOCH 33/100 ---
+step 0   loader    1.3 ms  gpu   62.8 ms
+step 1   loader    1.2 ms  gpu   62.0 ms
+step 2   loader    1.1 ms  gpu   62.0 ms
+step 3   loader    1.1 ms  gpu   61.9 ms
+step 4   loader    1.1 ms  gpu   62.2 ms
+step 5   loader    0.8 ms  gpu   62.2 ms
+step 6   loader    1.1 ms  gpu   62.3 ms
+step 7   loader    1.1 ms  gpu   62.0 ms
+step 8   loader    1.1 ms  gpu   62.0 ms
+step 9   loader    1.1 ms  gpu   62.2 ms
+step 10  loader    1.2 ms  gpu   62.2 ms
+step 11  loader    1.0 ms  gpu   62.0 ms
+step 12  loader    1.0 ms  gpu   62.1 ms
+step 13  loader    1.0 ms  gpu   62.1 ms
+step 14  loader    1.0 ms  gpu   61.9 ms
+step 15  loader    0.9 ms  gpu   62.0 ms
+step 16  loader    0.9 ms  gpu   62.1 ms
+step 17  loader    1.0 ms  gpu   62.0 ms
+step 18  loader    1.1 ms  gpu   62.1 ms
+step 19  loader    1.0 ms  gpu   62.2 ms
+Epoch 32 finished in 18.18 seconds
+Epoch 32, average train loss=0.0038
+Validation for epoch 32 took 6.04 seconds
+Validation MSE: 0.0047
+Train MSE: 0.003774, Val MSE: 0.004738
+--- EPOCH 34/100 ---
+step 0   loader    1.1 ms  gpu   62.7 ms
+step 1   loader    1.2 ms  gpu   62.0 ms
+step 2   loader    1.1 ms  gpu   62.0 ms
+step 3   loader    0.9 ms  gpu   62.2 ms
+step 4   loader    0.9 ms  gpu   62.1 ms
+step 5   loader    0.9 ms  gpu   62.0 ms
+step 6   loader    1.0 ms  gpu   62.1 ms
+step 7   loader    0.8 ms  gpu   61.9 ms
+step 8   loader    0.9 ms  gpu   62.3 ms
+step 9   loader    1.0 ms  gpu   62.0 ms
+step 10  loader    0.9 ms  gpu   62.1 ms
+step 11  loader    1.3 ms  gpu   61.9 ms
+step 12  loader    0.9 ms  gpu   62.0 ms
+step 13  loader    0.9 ms  gpu   62.0 ms
+step 14  loader    1.2 ms  gpu   62.1 ms
+step 15  loader    1.2 ms  gpu   62.0 ms
+step 16  loader    1.1 ms  gpu   62.1 ms
+step 17  loader    1.2 ms  gpu   62.0 ms
+step 18  loader    1.1 ms  gpu   62.1 ms
+step 19  loader    0.9 ms  gpu   62.3 ms
+Epoch 33 finished in 18.18 seconds
+Epoch 33, average train loss=0.0038
+Validation for epoch 33 took 6.01 seconds
+Validation MSE: 0.0048
+Train MSE: 0.003759, Val MSE: 0.004758
+--- EPOCH 35/100 ---
+step 0   loader    1.3 ms  gpu   62.8 ms
+step 1   loader    1.1 ms  gpu   62.0 ms
+step 2   loader    1.1 ms  gpu   62.1 ms
+step 3   loader    1.0 ms  gpu   62.1 ms
+step 4   loader    1.2 ms  gpu   62.1 ms
+step 5   loader    1.1 ms  gpu   62.2 ms
+step 6   loader    1.1 ms  gpu   62.1 ms
+step 7   loader    0.9 ms  gpu   62.3 ms
+step 8   loader    1.2 ms  gpu   62.4 ms
+step 9   loader    1.4 ms  gpu   62.1 ms
+step 10  loader    0.9 ms  gpu   62.2 ms
+step 11  loader    1.0 ms  gpu   62.2 ms
+step 12  loader    0.9 ms  gpu   62.3 ms
+step 13  loader    1.0 ms  gpu   62.2 ms
+step 14  loader    0.9 ms  gpu   62.1 ms
+step 15  loader    0.9 ms  gpu   62.1 ms
+step 16  loader    1.2 ms  gpu   62.0 ms
+step 17  loader    1.1 ms  gpu   62.1 ms
+step 18  loader    1.0 ms  gpu   62.1 ms
+step 19  loader    1.1 ms  gpu   62.1 ms
+Epoch 34 finished in 18.19 seconds
+Epoch 34, average train loss=0.0037
+Validation for epoch 34 took 6.01 seconds
+Validation MSE: 0.0045
+Train MSE: 0.003710, Val MSE: 0.004515
+--- EPOCH 36/100 ---
+step 0   loader    1.2 ms  gpu   62.8 ms
+step 1   loader    1.2 ms  gpu   62.0 ms
+step 2   loader    0.9 ms  gpu   62.1 ms
+step 3   loader    1.1 ms  gpu   62.0 ms
+step 4   loader    1.0 ms  gpu   62.1 ms
+step 5   loader    1.0 ms  gpu   62.3 ms
+step 6   loader    1.2 ms  gpu   62.2 ms
+step 7   loader    0.9 ms  gpu   62.0 ms
+step 8   loader    1.0 ms  gpu   62.0 ms
+step 9   loader    0.9 ms  gpu   62.0 ms
+step 10  loader    1.1 ms  gpu   62.2 ms
+step 11  loader    1.2 ms  gpu   62.3 ms
+step 12  loader    0.9 ms  gpu   62.1 ms
+step 13  loader    0.9 ms  gpu   62.1 ms
+step 14  loader    1.0 ms  gpu   62.0 ms
+step 15  loader    1.1 ms  gpu   62.0 ms
+step 16  loader    1.2 ms  gpu   62.0 ms
+step 17  loader    1.2 ms  gpu   62.0 ms
+step 18  loader    0.9 ms  gpu   62.2 ms
+step 19  loader    0.9 ms  gpu   62.0 ms
+Epoch 35 finished in 18.19 seconds
+Epoch 35, average train loss=0.0037
+Validation for epoch 35 took 5.99 seconds
+Validation MSE: 0.0046
+Train MSE: 0.003706, Val MSE: 0.004561
+--- EPOCH 37/100 ---
+step 0   loader    1.1 ms  gpu   62.9 ms
+step 1   loader    0.9 ms  gpu   62.0 ms
+step 2   loader    0.9 ms  gpu   62.2 ms
+step 3   loader    0.9 ms  gpu   62.1 ms
+step 4   loader    1.1 ms  gpu   62.1 ms
+step 5   loader    1.0 ms  gpu   62.0 ms
+step 6   loader    0.9 ms  gpu   62.2 ms
+step 7   loader    0.9 ms  gpu   62.1 ms
+step 8   loader    1.0 ms  gpu   62.1 ms
+step 9   loader    1.0 ms  gpu   62.0 ms
+step 10  loader    1.0 ms  gpu   62.3 ms
+step 11  loader    1.2 ms  gpu   62.2 ms
+step 12  loader    1.0 ms  gpu   61.9 ms
+step 13  loader    1.3 ms  gpu   62.0 ms
+step 14  loader    1.0 ms  gpu   62.2 ms
+step 15  loader    0.8 ms  gpu   62.0 ms
+step 16  loader    1.2 ms  gpu   62.1 ms
+step 17  loader    0.9 ms  gpu   62.0 ms
+step 18  loader    0.9 ms  gpu   62.0 ms
+step 19  loader    1.0 ms  gpu   62.1 ms
+Epoch 36 finished in 18.18 seconds
+Epoch 36, average train loss=0.0037
+Validation for epoch 36 took 6.01 seconds
+Validation MSE: 0.0043
+Train MSE: 0.003687, Val MSE: 0.004307
+Saved new best model to /work/nv25/Carrie/cypress_creek/models/model_outputs/unet7_std_model_20250505_162429_epoch36.pth
+--- EPOCH 38/100 ---
+step 0   loader    1.9 ms  gpu   62.4 ms
+step 1   loader    1.2 ms  gpu   61.7 ms
+step 2   loader    1.0 ms  gpu   61.7 ms
+step 3   loader    1.0 ms  gpu   61.9 ms
+step 4   loader    0.9 ms  gpu   62.1 ms
+step 5   loader    1.3 ms  gpu   62.4 ms
+step 6   loader    1.5 ms  gpu   62.4 ms
+step 7   loader    1.3 ms  gpu   62.4 ms
+step 8   loader    1.6 ms  gpu   62.0 ms
+step 9   loader    1.0 ms  gpu   61.9 ms
+step 10  loader    0.9 ms  gpu   61.8 ms
+step 11  loader    1.0 ms  gpu   61.8 ms
+step 12  loader    1.0 ms  gpu   62.0 ms
+step 13  loader    1.2 ms  gpu   61.9 ms
+step 14  loader    1.0 ms  gpu   62.0 ms
+step 15  loader    0.9 ms  gpu   62.0 ms
+step 16  loader    1.0 ms  gpu   62.3 ms
+step 17  loader    1.1 ms  gpu   62.1 ms
+step 18  loader    0.9 ms  gpu   62.0 ms
+step 19  loader    0.9 ms  gpu   61.9 ms
+Epoch 37 finished in 18.24 seconds
+Epoch 37, average train loss=0.0037
+Validation for epoch 37 took 6.01 seconds
+Validation MSE: 0.0048
+Train MSE: 0.003668, Val MSE: 0.004814
+--- EPOCH 39/100 ---
+step 0   loader    1.6 ms  gpu   62.8 ms
+step 1   loader    1.1 ms  gpu   61.9 ms
+step 2   loader    0.9 ms  gpu   62.0 ms
+step 3   loader    1.1 ms  gpu   62.0 ms
+step 4   loader    1.1 ms  gpu   62.1 ms
+step 5   loader    0.9 ms  gpu   62.0 ms
+step 6   loader    0.9 ms  gpu   62.6 ms
+step 7   loader    1.0 ms  gpu   62.1 ms
+step 8   loader    0.9 ms  gpu   62.0 ms
+step 9   loader    1.0 ms  gpu   62.0 ms
+step 10  loader    1.0 ms  gpu   62.0 ms
+step 11  loader    1.0 ms  gpu   62.2 ms
+step 12  loader    1.1 ms  gpu   62.2 ms
+step 13  loader    1.1 ms  gpu   61.9 ms
+step 14  loader    1.1 ms  gpu   61.9 ms
+step 15  loader    1.0 ms  gpu   61.9 ms
+step 16  loader    0.9 ms  gpu   62.0 ms
+step 17  loader    1.1 ms  gpu   62.0 ms
+step 18  loader    1.0 ms  gpu   62.1 ms
+step 19  loader    0.9 ms  gpu   61.8 ms
+Epoch 38 finished in 18.19 seconds
+Epoch 38, average train loss=0.0037
+Validation for epoch 38 took 6.00 seconds
+Validation MSE: 0.0044
+Train MSE: 0.003661, Val MSE: 0.004353
+--- EPOCH 40/100 ---
+step 0   loader    1.1 ms  gpu   62.6 ms
+step 1   loader    0.9 ms  gpu   62.2 ms
+step 2   loader    0.9 ms  gpu   62.1 ms
+step 3   loader    0.9 ms  gpu   62.0 ms
+step 4   loader    0.9 ms  gpu   62.4 ms
+step 5   loader    0.9 ms  gpu   61.9 ms
+step 6   loader    0.9 ms  gpu   62.1 ms
+step 7   loader    0.9 ms  gpu   62.0 ms
+step 8   loader    0.9 ms  gpu   62.6 ms
+step 9   loader    1.4 ms  gpu   62.2 ms
+step 10  loader    1.1 ms  gpu   62.1 ms
+step 11  loader    1.0 ms  gpu   62.1 ms
+step 12  loader    0.9 ms  gpu   62.3 ms
+step 13  loader    0.9 ms  gpu   62.0 ms
+step 14  loader    1.0 ms  gpu   62.3 ms
+step 15  loader    1.1 ms  gpu   62.0 ms
+step 16  loader    1.0 ms  gpu   62.1 ms
+step 17  loader    1.3 ms  gpu   62.2 ms
+step 18  loader    0.9 ms  gpu   62.1 ms
+step 19  loader    1.1 ms  gpu   62.1 ms
+Epoch 39 finished in 18.17 seconds
+Epoch 39, average train loss=0.0036
+Validation for epoch 39 took 6.01 seconds
+Validation MSE: 0.0046
+Train MSE: 0.003648, Val MSE: 0.004575
+--- EPOCH 41/100 ---
+step 0   loader    1.0 ms  gpu   62.7 ms
+step 1   loader    0.9 ms  gpu   62.2 ms
+step 2   loader    0.9 ms  gpu   62.0 ms
+step 3   loader    0.9 ms  gpu   62.2 ms
+step 4   loader    0.9 ms  gpu   62.1 ms
+step 5   loader    0.9 ms  gpu   62.2 ms
+step 6   loader    1.1 ms  gpu   62.1 ms
+step 7   loader    0.9 ms  gpu   62.0 ms
+step 8   loader    1.0 ms  gpu   62.0 ms
+step 9   loader    0.9 ms  gpu   62.0 ms
+step 10  loader    0.9 ms  gpu   62.1 ms
+step 11  loader    0.9 ms  gpu   62.0 ms
+step 12  loader    0.9 ms  gpu   62.1 ms
+step 13  loader    1.1 ms  gpu   62.0 ms
+step 14  loader    0.9 ms  gpu   62.0 ms
+step 15  loader    0.9 ms  gpu   62.0 ms
+step 16  loader    1.2 ms  gpu   62.2 ms
+step 17  loader    0.9 ms  gpu   61.9 ms
+step 18  loader    0.9 ms  gpu   62.2 ms
+step 19  loader    0.9 ms  gpu   62.0 ms
+Epoch 40 finished in 18.18 seconds
+Epoch 40, average train loss=0.0036
+Validation for epoch 40 took 6.01 seconds
+Validation MSE: 0.0049
+Train MSE: 0.003623, Val MSE: 0.004880
+--- EPOCH 42/100 ---
+step 0   loader    1.4 ms  gpu   63.2 ms
+step 1   loader    0.9 ms  gpu   62.2 ms
+step 2   loader    1.1 ms  gpu   62.1 ms
+step 3   loader    0.9 ms  gpu   62.2 ms
+step 4   loader    1.1 ms  gpu   62.4 ms
+step 5   loader    1.1 ms  gpu   62.0 ms
+step 6   loader    1.1 ms  gpu   62.0 ms
+step 7   loader    1.0 ms  gpu   61.8 ms
+step 8   loader    1.1 ms  gpu   62.3 ms
+step 9   loader    1.1 ms  gpu   62.1 ms
+step 10  loader    1.1 ms  gpu   62.1 ms
+step 11  loader    1.1 ms  gpu   62.1 ms
+step 12  loader    0.8 ms  gpu   62.0 ms
+step 13  loader    1.0 ms  gpu   61.9 ms
+step 14  loader    0.9 ms  gpu   62.1 ms
+step 15  loader    1.0 ms  gpu   62.0 ms
+step 16  loader    1.2 ms  gpu   62.1 ms
+step 17  loader    1.2 ms  gpu   62.0 ms
+step 18  loader    0.9 ms  gpu   62.0 ms
+step 19  loader    1.0 ms  gpu   62.0 ms
+Epoch 41 finished in 18.18 seconds
+Epoch 41, average train loss=0.0036
+Validation for epoch 41 took 6.01 seconds
+Validation MSE: 0.0044
+Train MSE: 0.003586, Val MSE: 0.004425
+--- EPOCH 43/100 ---
+step 0   loader    1.2 ms  gpu   62.7 ms
+step 1   loader    1.1 ms  gpu   62.1 ms
+step 2   loader    1.2 ms  gpu   62.0 ms
+step 3   loader    1.0 ms  gpu   62.0 ms
+step 4   loader    1.1 ms  gpu   62.3 ms
+step 5   loader    0.8 ms  gpu   62.3 ms
+step 6   loader    1.2 ms  gpu   62.2 ms
+step 7   loader    1.1 ms  gpu   61.9 ms
+step 8   loader    1.0 ms  gpu   62.0 ms
+step 9   loader    1.1 ms  gpu   62.0 ms
+step 10  loader    1.1 ms  gpu   62.3 ms
+step 11  loader    1.2 ms  gpu   62.0 ms
+step 12  loader    1.1 ms  gpu   62.0 ms
+step 13  loader    1.2 ms  gpu   61.9 ms
+step 14  loader    1.0 ms  gpu   61.9 ms
+step 15  loader    1.1 ms  gpu   62.1 ms
+step 16  loader    1.0 ms  gpu   62.1 ms
+step 17  loader    0.9 ms  gpu   62.1 ms
+step 18  loader    1.0 ms  gpu   62.1 ms
+step 19  loader    1.0 ms  gpu   61.9 ms
+Epoch 42 finished in 18.17 seconds
+Epoch 42, average train loss=0.0036
+Validation for epoch 42 took 6.03 seconds
+Validation MSE: 0.0048
+Train MSE: 0.003573, Val MSE: 0.004782
+--- EPOCH 44/100 ---
+step 0   loader    1.7 ms  gpu   63.5 ms
+step 1   loader    1.5 ms  gpu   62.4 ms
+step 2   loader    1.4 ms  gpu   62.2 ms
+step 3   loader    1.5 ms  gpu   62.1 ms
+step 4   loader    1.5 ms  gpu   62.3 ms
+step 5   loader    1.2 ms  gpu   62.3 ms
+step 6   loader    1.3 ms  gpu   62.5 ms
+step 7   loader    1.0 ms  gpu   62.1 ms
+step 8   loader    1.2 ms  gpu   62.3 ms
+step 9   loader    1.5 ms  gpu   62.2 ms
+step 10  loader    1.3 ms  gpu   62.2 ms
+step 11  loader    1.3 ms  gpu   62.1 ms
+step 12  loader    1.4 ms  gpu   62.4 ms
+step 13  loader    1.1 ms  gpu   62.3 ms
+step 14  loader    1.3 ms  gpu   62.6 ms
+step 15  loader    1.5 ms  gpu   62.6 ms
+step 16  loader    1.2 ms  gpu   62.1 ms
+step 17  loader    1.1 ms  gpu   62.0 ms
+step 18  loader    0.9 ms  gpu   62.0 ms
+step 19  loader    1.0 ms  gpu   61.9 ms
+Epoch 43 finished in 18.19 seconds
+Epoch 43, average train loss=0.0036
+Validation for epoch 43 took 5.99 seconds
+Validation MSE: 0.0044
+Train MSE: 0.003611, Val MSE: 0.004412
+--- EPOCH 45/100 ---
+step 0   loader    1.0 ms  gpu   62.6 ms
+step 1   loader    0.9 ms  gpu   62.2 ms
+step 2   loader    0.9 ms  gpu   62.0 ms
+step 3   loader    0.9 ms  gpu   62.0 ms
+step 4   loader    0.9 ms  gpu   62.1 ms
+step 5   loader    0.9 ms  gpu   62.0 ms
+step 6   loader    0.9 ms  gpu   62.0 ms
+step 7   loader    0.9 ms  gpu   61.9 ms
+step 8   loader    1.0 ms  gpu   62.6 ms
+step 9   loader    1.1 ms  gpu   62.7 ms
+step 10  loader    1.1 ms  gpu   62.9 ms
+step 11  loader    1.1 ms  gpu   62.5 ms
+step 12  loader    0.9 ms  gpu   62.9 ms
+step 13  loader    1.1 ms  gpu   62.4 ms
+step 14  loader    0.9 ms  gpu   62.8 ms
+step 15  loader    1.3 ms  gpu   62.9 ms
+step 16  loader    1.2 ms  gpu   62.9 ms
+step 17  loader    1.1 ms  gpu   62.5 ms
+step 18  loader    1.0 ms  gpu   62.7 ms
+step 19  loader    1.3 ms  gpu   62.8 ms
+Epoch 44 finished in 18.27 seconds
+Epoch 44, average train loss=0.0036
+Validation for epoch 44 took 6.01 seconds
+Validation MSE: 0.0045
+Train MSE: 0.003591, Val MSE: 0.004472
+--- EPOCH 46/100 ---
+step 0   loader    1.4 ms  gpu   62.7 ms
+step 1   loader    0.9 ms  gpu   62.2 ms
+step 2   loader    0.9 ms  gpu   62.2 ms
+step 3   loader    1.2 ms  gpu   62.3 ms
+step 4   loader    1.0 ms  gpu   62.3 ms
+step 5   loader    0.9 ms  gpu   61.9 ms
+step 6   loader    1.0 ms  gpu   62.2 ms
+step 7   loader    0.9 ms  gpu   62.2 ms
+step 8   loader    1.0 ms  gpu   62.3 ms
+step 9   loader    0.9 ms  gpu   61.9 ms
+step 10  loader    0.9 ms  gpu   62.1 ms
+step 11  loader    1.1 ms  gpu   62.1 ms
+step 12  loader    0.9 ms  gpu   62.1 ms
+step 13  loader    0.9 ms  gpu   62.1 ms
+step 14  loader    1.2 ms  gpu   62.2 ms
+step 15  loader    0.9 ms  gpu   61.9 ms
+step 16  loader    0.8 ms  gpu   62.3 ms
+step 17  loader    1.0 ms  gpu   61.9 ms
+step 18  loader    1.1 ms  gpu   62.0 ms
+step 19  loader    1.0 ms  gpu   62.6 ms
+Epoch 45 finished in 18.18 seconds
+Epoch 45, average train loss=0.0035
+Validation for epoch 45 took 5.98 seconds
+Validation MSE: 0.0044
+Train MSE: 0.003543, Val MSE: 0.004395
+--- EPOCH 47/100 ---
+step 0   loader    1.1 ms  gpu   62.8 ms
+step 1   loader    0.9 ms  gpu   61.9 ms
+step 2   loader    0.9 ms  gpu   62.0 ms
+step 3   loader    0.9 ms  gpu   62.0 ms
+step 4   loader    0.9 ms  gpu   62.2 ms
+step 5   loader    0.9 ms  gpu   62.2 ms
+step 6   loader    1.0 ms  gpu   62.5 ms
+step 7   loader    0.9 ms  gpu   62.1 ms
+step 8   loader    0.9 ms  gpu   61.9 ms
+step 9   loader    0.9 ms  gpu   62.1 ms
+step 10  loader    1.0 ms  gpu   62.2 ms
+step 11  loader    1.1 ms  gpu   62.0 ms
+step 12  loader    0.9 ms  gpu   62.3 ms
+step 13  loader    0.8 ms  gpu   62.1 ms
+step 14  loader    0.9 ms  gpu   61.9 ms
+step 15  loader    0.9 ms  gpu   62.1 ms
+step 16  loader    0.8 ms  gpu   62.6 ms
+step 17  loader    0.9 ms  gpu   62.2 ms
+step 18  loader    0.9 ms  gpu   62.1 ms
+step 19  loader    0.8 ms  gpu   62.1 ms
+Epoch 46 finished in 18.17 seconds
+Epoch 46, average train loss=0.0035
+Validation for epoch 46 took 6.01 seconds
+Validation MSE: 0.0045
+Train MSE: 0.003535, Val MSE: 0.004487
+--- EPOCH 48/100 ---
+step 0   loader    1.2 ms  gpu   62.6 ms
+step 1   loader    1.0 ms  gpu   62.0 ms
+step 2   loader    0.9 ms  gpu   62.2 ms
+step 3   loader    0.9 ms  gpu   62.0 ms
+step 4   loader    0.9 ms  gpu   62.0 ms
+step 5   loader    1.3 ms  gpu   62.0 ms
+step 6   loader    1.1 ms  gpu   62.5 ms
+step 7   loader    1.2 ms  gpu   62.0 ms
+step 8   loader    1.1 ms  gpu   62.0 ms
+step 9   loader    0.9 ms  gpu   62.1 ms
+step 10  loader    1.0 ms  gpu   62.2 ms
+step 11  loader    1.1 ms  gpu   62.0 ms
+step 12  loader    1.0 ms  gpu   62.1 ms
+step 13  loader    0.9 ms  gpu   62.0 ms
+step 14  loader    0.9 ms  gpu   62.2 ms
+step 15  loader    0.9 ms  gpu   62.0 ms
+step 16  loader    0.9 ms  gpu   62.0 ms
+step 17  loader    1.0 ms  gpu   61.9 ms
+step 18  loader    0.9 ms  gpu   62.1 ms
+step 19  loader    1.0 ms  gpu   62.0 ms
+Epoch 47 finished in 18.21 seconds
+Epoch 47, average train loss=0.0035
+Validation for epoch 47 took 6.07 seconds
+Validation MSE: 0.0043
+Train MSE: 0.003540, Val MSE: 0.004304
+Saved new best model to /work/nv25/Carrie/cypress_creek/models/model_outputs/unet7_std_model_20250505_162429_epoch47.pth
+--- EPOCH 49/100 ---
+step 0   loader    1.4 ms  gpu   62.3 ms
+step 1   loader    1.0 ms  gpu   61.8 ms
+step 2   loader    1.1 ms  gpu   62.0 ms
+step 3   loader    0.9 ms  gpu   61.8 ms
+step 4   loader    0.9 ms  gpu   62.3 ms
+step 5   loader    0.9 ms  gpu   61.8 ms
+step 6   loader    0.9 ms  gpu   62.2 ms
+step 7   loader    0.9 ms  gpu   62.1 ms
+step 8   loader    1.1 ms  gpu   62.1 ms
+step 9   loader    1.2 ms  gpu   61.8 ms
+step 10  loader    1.0 ms  gpu   62.0 ms
+step 11  loader    1.0 ms  gpu   61.9 ms
+step 12  loader    1.0 ms  gpu   62.0 ms
+step 13  loader    0.9 ms  gpu   62.0 ms
+step 14  loader    1.0 ms  gpu   62.1 ms
+step 15  loader    1.0 ms  gpu   61.9 ms
+step 16  loader    1.0 ms  gpu   62.3 ms
+step 17  loader    1.1 ms  gpu   62.2 ms
+step 18  loader    1.1 ms  gpu   62.0 ms
+step 19  loader    1.1 ms  gpu   62.0 ms
+Epoch 48 finished in 18.26 seconds
+Epoch 48, average train loss=0.0035
+Validation for epoch 48 took 6.11 seconds
+Validation MSE: 0.0046
+Train MSE: 0.003530, Val MSE: 0.004632
+--- EPOCH 50/100 ---
+step 0   loader    1.3 ms  gpu   62.6 ms
+step 1   loader    1.1 ms  gpu   61.9 ms
+step 2   loader    1.0 ms  gpu   62.0 ms
+step 3   loader    1.0 ms  gpu   62.0 ms
+step 4   loader    1.1 ms  gpu   62.2 ms
+step 5   loader    0.8 ms  gpu   62.1 ms
+step 6   loader    1.0 ms  gpu   62.1 ms
+step 7   loader    0.8 ms  gpu   62.1 ms
+step 8   loader    1.0 ms  gpu   62.0 ms
+step 9   loader    1.1 ms  gpu   62.0 ms
+step 10  loader    1.0 ms  gpu   62.0 ms
+step 11  loader    1.0 ms  gpu   62.0 ms
+step 12  loader    1.0 ms  gpu   62.0 ms
+step 13  loader    1.0 ms  gpu   62.0 ms
+step 14  loader    1.0 ms  gpu   62.0 ms
+step 15  loader    1.1 ms  gpu   62.1 ms
+step 16  loader    1.0 ms  gpu   62.3 ms
+step 17  loader    1.1 ms  gpu   62.3 ms
+step 18  loader    1.1 ms  gpu   62.1 ms
+step 19  loader    1.0 ms  gpu   62.0 ms
+Epoch 49 finished in 18.16 seconds
+Epoch 49, average train loss=0.0035
+Validation for epoch 49 took 6.00 seconds
+Validation MSE: 0.0045
+Train MSE: 0.003511, Val MSE: 0.004545
+--- EPOCH 51/100 ---
+step 0   loader    1.2 ms  gpu   62.5 ms
+step 1   loader    1.0 ms  gpu   62.0 ms
+step 2   loader    1.1 ms  gpu   62.0 ms
+step 3   loader    1.1 ms  gpu   62.1 ms
+step 4   loader    1.2 ms  gpu   62.0 ms
+step 5   loader    1.0 ms  gpu   62.0 ms
+step 6   loader    1.1 ms  gpu   62.1 ms
+step 7   loader    0.9 ms  gpu   62.1 ms
+step 8   loader    1.0 ms  gpu   62.0 ms
+step 9   loader    1.1 ms  gpu   62.0 ms
+step 10  loader    0.8 ms  gpu   62.0 ms
+step 11  loader    1.0 ms  gpu   61.9 ms
+step 12  loader    1.0 ms  gpu   62.1 ms
+step 13  loader    1.2 ms  gpu   62.0 ms
+step 14  loader    1.1 ms  gpu   62.0 ms
+step 15  loader    0.9 ms  gpu   62.0 ms
+step 16  loader    0.9 ms  gpu   62.0 ms
+step 17  loader    0.9 ms  gpu   62.0 ms
+step 18  loader    1.1 ms  gpu   62.1 ms
+step 19  loader    1.1 ms  gpu   62.0 ms
+Epoch 50 finished in 18.27 seconds
+Epoch 50, average train loss=0.0035
+Validation for epoch 50 took 6.01 seconds
+Validation MSE: 0.0042
+Train MSE: 0.003503, Val MSE: 0.004158
+Saved new best model to /work/nv25/Carrie/cypress_creek/models/model_outputs/unet7_std_model_20250505_162429_epoch50.pth
+--- EPOCH 52/100 ---
+step 0   loader    1.8 ms  gpu   62.4 ms
+step 1   loader    1.0 ms  gpu   61.9 ms
+step 2   loader    0.8 ms  gpu   61.9 ms
+step 3   loader    0.9 ms  gpu   62.2 ms
+step 4   loader    1.1 ms  gpu   61.9 ms
+step 5   loader    0.9 ms  gpu   61.9 ms
+step 6   loader    1.1 ms  gpu   62.0 ms
+step 7   loader    1.0 ms  gpu   61.9 ms
+step 8   loader    1.0 ms  gpu   62.1 ms
+step 9   loader    0.8 ms  gpu   62.1 ms
+step 10  loader    1.1 ms  gpu   62.2 ms
+step 11  loader    0.9 ms  gpu   62.1 ms
+step 12  loader    1.1 ms  gpu   62.1 ms
+step 13  loader    1.0 ms  gpu   61.9 ms
+step 14  loader    1.1 ms  gpu   62.0 ms
+step 15  loader    1.2 ms  gpu   62.0 ms
+step 16  loader    0.9 ms  gpu   62.1 ms
+step 17  loader    1.1 ms  gpu   61.9 ms
+step 18  loader    0.9 ms  gpu   62.2 ms
+step 19  loader    0.9 ms  gpu   61.8 ms
+Epoch 51 finished in 18.17 seconds
+Epoch 51, average train loss=0.0035
+Validation for epoch 51 took 6.02 seconds
+Validation MSE: 0.0046
+Train MSE: 0.003488, Val MSE: 0.004615
+--- EPOCH 53/100 ---
+step 0   loader    1.3 ms  gpu   62.7 ms
+step 1   loader    1.1 ms  gpu   62.0 ms
+step 2   loader    1.1 ms  gpu   62.1 ms
+step 3   loader    1.2 ms  gpu   62.0 ms
+step 4   loader    0.9 ms  gpu   62.0 ms
+step 5   loader    0.9 ms  gpu   62.3 ms
+step 6   loader    1.0 ms  gpu   62.2 ms
+step 7   loader    1.0 ms  gpu   62.0 ms
+step 8   loader    1.1 ms  gpu   62.0 ms
+step 9   loader    1.0 ms  gpu   61.9 ms
+step 10  loader    1.1 ms  gpu   62.2 ms
+step 11  loader    1.1 ms  gpu   62.1 ms
+step 12  loader    0.9 ms  gpu   62.0 ms
+step 13  loader    1.1 ms  gpu   61.9 ms
+step 14  loader    0.9 ms  gpu   62.0 ms
+step 15  loader    1.2 ms  gpu   61.9 ms
+step 16  loader    0.9 ms  gpu   62.0 ms
+step 17  loader    0.9 ms  gpu   62.0 ms
+step 18  loader    1.0 ms  gpu   62.1 ms
+step 19  loader    1.1 ms  gpu   62.0 ms
+Epoch 52 finished in 18.17 seconds
+Epoch 52, average train loss=0.0035
+Validation for epoch 52 took 6.06 seconds
+Validation MSE: 0.0044
+Train MSE: 0.003494, Val MSE: 0.004427
+--- EPOCH 54/100 ---
+step 0   loader    1.6 ms  gpu   63.0 ms
+step 1   loader    1.4 ms  gpu   62.2 ms
+step 2   loader    1.4 ms  gpu   62.4 ms
+step 3   loader    1.3 ms  gpu   62.4 ms
+step 4   loader    1.2 ms  gpu   62.3 ms
+step 5   loader    1.4 ms  gpu   62.6 ms
+step 6   loader    1.1 ms  gpu   62.0 ms
+step 7   loader    0.9 ms  gpu   62.2 ms
+step 8   loader    0.9 ms  gpu   62.1 ms
+step 9   loader    1.2 ms  gpu   62.0 ms
+step 10  loader    1.1 ms  gpu   62.1 ms
+step 11  loader    1.0 ms  gpu   62.0 ms
+step 12  loader    1.1 ms  gpu   61.9 ms
+step 13  loader    1.1 ms  gpu   61.9 ms
+step 14  loader    1.1 ms  gpu   62.3 ms
+step 15  loader    1.2 ms  gpu   62.2 ms
+step 16  loader    1.0 ms  gpu   62.1 ms
+step 17  loader    1.1 ms  gpu   62.0 ms
+step 18  loader    1.1 ms  gpu   62.0 ms
+step 19  loader    1.1 ms  gpu   62.3 ms
+Epoch 53 finished in 18.17 seconds
+Epoch 53, average train loss=0.0035
+Validation for epoch 53 took 6.00 seconds
+Validation MSE: 0.0040
+Train MSE: 0.003464, Val MSE: 0.003997
+Saved new best model to /work/nv25/Carrie/cypress_creek/models/model_outputs/unet7_std_model_20250505_162429_epoch53.pth
+--- EPOCH 55/100 ---
+step 0   loader    1.9 ms  gpu   62.4 ms
+step 1   loader    1.0 ms  gpu   61.7 ms
+step 2   loader    1.1 ms  gpu   61.8 ms
+step 3   loader    1.0 ms  gpu   61.8 ms
+step 4   loader    1.0 ms  gpu   61.8 ms
+step 5   loader    1.0 ms  gpu   61.9 ms
+step 6   loader    0.9 ms  gpu   62.0 ms
+step 7   loader    1.2 ms  gpu   61.8 ms
+step 8   loader    1.0 ms  gpu   61.9 ms
+step 9   loader    0.9 ms  gpu   61.9 ms
+step 10  loader    1.1 ms  gpu   61.9 ms
+step 11  loader    1.1 ms  gpu   62.0 ms
+step 12  loader    1.0 ms  gpu   62.1 ms
+step 13  loader    0.9 ms  gpu   61.8 ms
+step 14  loader    1.0 ms  gpu   62.2 ms
+step 15  loader    1.1 ms  gpu   62.1 ms
+step 16  loader    1.2 ms  gpu   62.0 ms
+step 17  loader    1.2 ms  gpu   61.9 ms
+step 18  loader    1.2 ms  gpu   62.1 ms
+step 19  loader    1.0 ms  gpu   62.2 ms
+Epoch 54 finished in 18.19 seconds
+Epoch 54, average train loss=0.0035
+Validation for epoch 54 took 6.00 seconds
+Validation MSE: 0.0047
+Train MSE: 0.003477, Val MSE: 0.004671
+--- EPOCH 56/100 ---
+step 0   loader    1.2 ms  gpu   62.7 ms
+step 1   loader    1.0 ms  gpu   62.1 ms
+step 2   loader    0.9 ms  gpu   62.5 ms
+step 3   loader    1.0 ms  gpu   62.0 ms
+step 4   loader    0.9 ms  gpu   62.2 ms
+step 5   loader    0.9 ms  gpu   61.9 ms
+step 6   loader    1.2 ms  gpu   62.1 ms
+step 7   loader    0.9 ms  gpu   61.8 ms
+step 8   loader    1.0 ms  gpu   61.9 ms
+step 9   loader    1.0 ms  gpu   61.9 ms
+step 10  loader    1.1 ms  gpu   62.1 ms
+step 11  loader    1.0 ms  gpu   62.0 ms
+step 12  loader    1.0 ms  gpu   62.1 ms
+step 13  loader    0.8 ms  gpu   62.2 ms
+step 14  loader    1.0 ms  gpu   62.0 ms
+step 15  loader    0.9 ms  gpu   61.9 ms
+step 16  loader    0.9 ms  gpu   62.2 ms
+step 17  loader    1.3 ms  gpu   62.0 ms
+step 18  loader    0.9 ms  gpu   62.0 ms
+step 19  loader    1.1 ms  gpu   62.0 ms
+Epoch 55 finished in 18.17 seconds
+Epoch 55, average train loss=0.0034
+Validation for epoch 55 took 6.01 seconds
+Validation MSE: 0.0042
+Train MSE: 0.003434, Val MSE: 0.004171
+--- EPOCH 57/100 ---
+step 0   loader    1.4 ms  gpu   62.6 ms
+step 1   loader    0.9 ms  gpu   62.0 ms
+step 2   loader    1.1 ms  gpu   62.1 ms
+step 3   loader    1.1 ms  gpu   62.1 ms
+step 4   loader    1.1 ms  gpu   62.1 ms
+step 5   loader    0.9 ms  gpu   62.1 ms
+step 6   loader    1.1 ms  gpu   62.1 ms
+step 7   loader    1.0 ms  gpu   62.0 ms
+step 8   loader    1.1 ms  gpu   62.0 ms
+step 9   loader    1.0 ms  gpu   62.7 ms
+step 10  loader    1.1 ms  gpu   62.4 ms
+step 11  loader    1.1 ms  gpu   61.9 ms
+step 12  loader    1.2 ms  gpu   62.0 ms
+step 13  loader    1.8 ms  gpu   62.0 ms
+step 14  loader    1.0 ms  gpu   62.0 ms
+step 15  loader    1.0 ms  gpu   62.3 ms
+step 16  loader    1.0 ms  gpu   62.1 ms
+step 17  loader    1.0 ms  gpu   62.0 ms
+step 18  loader    1.1 ms  gpu   62.0 ms
+step 19  loader    1.1 ms  gpu   62.0 ms
+Epoch 56 finished in 18.17 seconds
+Epoch 56, average train loss=0.0034
+Validation for epoch 56 took 6.01 seconds
+Validation MSE: 0.0045
+Train MSE: 0.003429, Val MSE: 0.004525
+--- EPOCH 58/100 ---
+step 0   loader    1.1 ms  gpu   62.5 ms
+step 1   loader    0.9 ms  gpu   62.0 ms
+step 2   loader    0.9 ms  gpu   62.0 ms
+step 3   loader    0.9 ms  gpu   62.0 ms
+step 4   loader    1.0 ms  gpu   62.2 ms
+step 5   loader    1.0 ms  gpu   62.2 ms
+step 6   loader    1.0 ms  gpu   62.4 ms
+step 7   loader    0.9 ms  gpu   61.9 ms
+step 8   loader    0.9 ms  gpu   62.1 ms
+step 9   loader    1.0 ms  gpu   62.1 ms
+step 10  loader    0.9 ms  gpu   62.2 ms
+step 11  loader    0.9 ms  gpu   62.1 ms
+step 12  loader    0.9 ms  gpu   62.2 ms
+step 13  loader    1.0 ms  gpu   62.0 ms
+step 14  loader    1.2 ms  gpu   62.1 ms
+step 15  loader    1.1 ms  gpu   62.0 ms
+step 16  loader    0.9 ms  gpu   61.9 ms
+step 17  loader    0.9 ms  gpu   62.2 ms
+step 18  loader    0.9 ms  gpu   62.1 ms
+step 19  loader    0.9 ms  gpu   61.9 ms
+Epoch 57 finished in 18.18 seconds
+Epoch 57, average train loss=0.0034
+Validation for epoch 57 took 6.01 seconds
+Validation MSE: 0.0048
+Train MSE: 0.003432, Val MSE: 0.004755
+--- EPOCH 59/100 ---
+step 0   loader    1.0 ms  gpu   62.8 ms
+step 1   loader    1.1 ms  gpu   62.0 ms
+step 2   loader    0.9 ms  gpu   62.1 ms
+step 3   loader    1.1 ms  gpu   61.9 ms
+step 4   loader    1.0 ms  gpu   62.1 ms
+step 5   loader    1.1 ms  gpu   62.0 ms
+step 6   loader    1.1 ms  gpu   61.9 ms
+step 7   loader    1.0 ms  gpu   62.0 ms
+step 8   loader    1.0 ms  gpu   62.1 ms
+step 9   loader    1.1 ms  gpu   62.3 ms
+step 10  loader    0.9 ms  gpu   62.0 ms
+step 11  loader    0.9 ms  gpu   61.9 ms
+step 12  loader    0.9 ms  gpu   62.0 ms
+step 13  loader    0.9 ms  gpu   62.0 ms
+step 14  loader    0.9 ms  gpu   62.1 ms
+step 15  loader    1.0 ms  gpu   62.0 ms
+step 16  loader    0.9 ms  gpu   62.1 ms
+step 17  loader    1.1 ms  gpu   61.9 ms
+step 18  loader    0.9 ms  gpu   62.0 ms
+step 19  loader    1.1 ms  gpu   61.9 ms
+Epoch 58 finished in 18.17 seconds
+Epoch 58, average train loss=0.0034
+Validation for epoch 58 took 6.01 seconds
+Validation MSE: 0.0044
+Train MSE: 0.003417, Val MSE: 0.004377
+--- EPOCH 60/100 ---
+step 0   loader    1.4 ms  gpu   62.7 ms
+step 1   loader    0.9 ms  gpu   62.2 ms
+step 2   loader    1.1 ms  gpu   62.0 ms
+step 3   loader    0.9 ms  gpu   63.1 ms
+step 4   loader    1.0 ms  gpu   62.2 ms
+step 5   loader    0.9 ms  gpu   62.2 ms
+step 6   loader    1.0 ms  gpu   62.1 ms
+step 7   loader    1.2 ms  gpu   62.0 ms
+step 8   loader    1.1 ms  gpu   62.3 ms
+step 9   loader    0.9 ms  gpu   62.0 ms
+step 10  loader    1.2 ms  gpu   62.0 ms
+step 11  loader    1.0 ms  gpu   62.0 ms
+step 12  loader    1.0 ms  gpu   62.1 ms
+step 13  loader    1.0 ms  gpu   62.1 ms
+step 14  loader    0.9 ms  gpu   62.2 ms
+step 15  loader    0.9 ms  gpu   61.9 ms
+step 16  loader    0.9 ms  gpu   62.1 ms
+step 17  loader    1.0 ms  gpu   62.0 ms
+step 18  loader    0.9 ms  gpu   62.1 ms
+step 19  loader    1.2 ms  gpu   61.9 ms
+Epoch 59 finished in 18.17 seconds
+Epoch 59, average train loss=0.0034
+Validation for epoch 59 took 6.00 seconds
+Validation MSE: 0.0044
+Train MSE: 0.003392, Val MSE: 0.004442
+--- EPOCH 61/100 ---
+step 0   loader    1.1 ms  gpu   62.7 ms
+step 1   loader    0.9 ms  gpu   62.0 ms
+step 2   loader    1.1 ms  gpu   62.1 ms
+step 3   loader    1.0 ms  gpu   61.9 ms
+step 4   loader    1.0 ms  gpu   62.1 ms
+step 5   loader    1.1 ms  gpu   62.1 ms
+step 6   loader    1.1 ms  gpu   62.1 ms
+step 7   loader    1.1 ms  gpu   62.1 ms
+step 8   loader    0.9 ms  gpu   62.1 ms
+step 9   loader    0.9 ms  gpu   62.1 ms
+step 10  loader    1.2 ms  gpu   62.3 ms
+step 11  loader    1.0 ms  gpu   62.4 ms
+step 12  loader    0.9 ms  gpu   62.1 ms
+step 13  loader    0.9 ms  gpu   62.0 ms
+step 14  loader    1.0 ms  gpu   62.2 ms
+step 15  loader    0.9 ms  gpu   62.1 ms
+step 16  loader    0.9 ms  gpu   62.2 ms
+step 17  loader    1.1 ms  gpu   62.0 ms
+step 18  loader    1.0 ms  gpu   62.1 ms
+step 19  loader    1.0 ms  gpu   62.0 ms
+Epoch 60 finished in 18.18 seconds
+Epoch 60, average train loss=0.0034
+Validation for epoch 60 took 6.06 seconds
+Validation MSE: 0.0046
+Train MSE: 0.003404, Val MSE: 0.004556
+--- EPOCH 62/100 ---
+step 0   loader    1.7 ms  gpu   63.0 ms
+step 1   loader    1.6 ms  gpu   61.9 ms
+step 2   loader    1.3 ms  gpu   62.4 ms
+step 3   loader    1.1 ms  gpu   62.2 ms
+step 4   loader    1.6 ms  gpu   62.3 ms
+step 5   loader    1.3 ms  gpu   62.0 ms
+step 6   loader    1.6 ms  gpu   62.2 ms
+step 7   loader    1.4 ms  gpu   62.2 ms
+step 8   loader    1.4 ms  gpu   62.5 ms
+step 9   loader    1.2 ms  gpu   62.4 ms
+step 10  loader    1.3 ms  gpu   62.4 ms
+step 11  loader    1.2 ms  gpu   62.3 ms
+step 12  loader    1.3 ms  gpu   62.2 ms
+step 13  loader    1.0 ms  gpu   62.1 ms
+step 14  loader    1.1 ms  gpu   62.5 ms
+step 15  loader    1.0 ms  gpu   62.4 ms
+step 16  loader    1.5 ms  gpu   62.0 ms
+step 17  loader    1.0 ms  gpu   62.2 ms
+step 18  loader    1.3 ms  gpu   62.8 ms
+step 19  loader    1.4 ms  gpu   62.6 ms
+Epoch 61 finished in 18.23 seconds
+Epoch 61, average train loss=0.0034
+Validation for epoch 61 took 6.02 seconds
+Validation MSE: 0.0047
+Train MSE: 0.003384, Val MSE: 0.004673
+--- EPOCH 63/100 ---
+step 0   loader    1.2 ms  gpu   62.7 ms
+step 1   loader    1.2 ms  gpu   62.1 ms
+step 2   loader    1.1 ms  gpu   62.1 ms
+step 3   loader    1.0 ms  gpu   62.0 ms
+step 4   loader    1.0 ms  gpu   62.0 ms
+step 5   loader    1.1 ms  gpu   61.9 ms
+step 6   loader    1.0 ms  gpu   62.5 ms
+step 7   loader    0.9 ms  gpu   62.0 ms
+step 8   loader    1.2 ms  gpu   62.1 ms
+step 9   loader    1.0 ms  gpu   62.0 ms
+step 10  loader    1.2 ms  gpu   62.0 ms
+step 11  loader    0.9 ms  gpu   62.0 ms
+step 12  loader    1.2 ms  gpu   62.1 ms
+step 13  loader    1.0 ms  gpu   62.0 ms
+step 14  loader    1.1 ms  gpu   62.0 ms
+step 15  loader    1.2 ms  gpu   62.0 ms
+step 16  loader    0.9 ms  gpu   62.0 ms
+step 17  loader    1.0 ms  gpu   61.9 ms
+step 18  loader    1.0 ms  gpu   62.6 ms
+step 19  loader    0.9 ms  gpu   62.3 ms
+Epoch 62 finished in 18.31 seconds
+Epoch 62, average train loss=0.0033
+Validation for epoch 62 took 6.06 seconds
+Validation MSE: 0.0046
+Train MSE: 0.003346, Val MSE: 0.004589
+--- EPOCH 64/100 ---
+step 0   loader    1.3 ms  gpu   62.6 ms
+step 1   loader    1.0 ms  gpu   62.0 ms
+step 2   loader    1.4 ms  gpu   62.1 ms
+step 3   loader    0.9 ms  gpu   62.0 ms
+step 4   loader    0.9 ms  gpu   62.1 ms
+step 5   loader    1.0 ms  gpu   62.0 ms
+step 6   loader    1.0 ms  gpu   62.1 ms
+step 7   loader    1.0 ms  gpu   62.1 ms
+step 8   loader    1.0 ms  gpu   62.1 ms
+step 9   loader    0.9 ms  gpu   62.1 ms
+step 10  loader    0.8 ms  gpu   62.0 ms
+step 11  loader    0.9 ms  gpu   62.1 ms
+step 12  loader    1.0 ms  gpu   62.1 ms
+step 13  loader    0.9 ms  gpu   62.0 ms
+step 14  loader    1.0 ms  gpu   62.0 ms
+step 15  loader    1.0 ms  gpu   62.0 ms
+step 16  loader    1.1 ms  gpu   62.0 ms
+step 17  loader    1.1 ms  gpu   61.9 ms
+step 18  loader    1.0 ms  gpu   62.3 ms
+step 19  loader    0.8 ms  gpu   62.0 ms
+Epoch 63 finished in 18.18 seconds
+Epoch 63, average train loss=0.0033
+Validation for epoch 63 took 6.03 seconds
+Validation MSE: 0.0042
+Train MSE: 0.003347, Val MSE: 0.004170
+--- EPOCH 65/100 ---
+step 0   loader    1.2 ms  gpu   62.6 ms
+step 1   loader    1.2 ms  gpu   61.9 ms
+step 2   loader    1.1 ms  gpu   62.1 ms
+step 3   loader    0.9 ms  gpu   62.1 ms
+step 4   loader    1.0 ms  gpu   62.1 ms
+step 5   loader    1.1 ms  gpu   62.1 ms
+step 6   loader    0.9 ms  gpu   62.2 ms
+step 7   loader    1.0 ms  gpu   62.1 ms
+step 8   loader    0.9 ms  gpu   62.1 ms
+step 9   loader    0.9 ms  gpu   62.0 ms
+step 10  loader    1.1 ms  gpu   62.0 ms
+step 11  loader    0.9 ms  gpu   62.0 ms
+step 12  loader    1.0 ms  gpu   62.1 ms
+step 13  loader    1.0 ms  gpu   62.0 ms
+step 14  loader    1.1 ms  gpu   62.1 ms
+step 15  loader    0.9 ms  gpu   61.9 ms
+step 16  loader    1.0 ms  gpu   62.0 ms
+step 17  loader    1.1 ms  gpu   61.9 ms
+step 18  loader    0.9 ms  gpu   62.2 ms
+step 19  loader    1.0 ms  gpu   62.0 ms
+Epoch 64 finished in 18.19 seconds
+Epoch 64, average train loss=0.0033
+Validation for epoch 64 took 6.05 seconds
+Validation MSE: 0.0044
+Train MSE: 0.003343, Val MSE: 0.004378
+--- EPOCH 66/100 ---
+step 0   loader    1.1 ms  gpu   62.9 ms
+step 1   loader    0.9 ms  gpu   62.0 ms
+step 2   loader    0.9 ms  gpu   62.1 ms
+step 3   loader    1.1 ms  gpu   62.3 ms
+step 4   loader    1.1 ms  gpu   62.3 ms
+step 5   loader    1.1 ms  gpu   62.0 ms
+step 6   loader    1.0 ms  gpu   62.1 ms
+step 7   loader    1.2 ms  gpu   62.1 ms
+step 8   loader    1.0 ms  gpu   62.3 ms
+step 9   loader    1.2 ms  gpu   62.1 ms
+step 10  loader    1.0 ms  gpu   62.1 ms
+step 11  loader    1.0 ms  gpu   61.9 ms
+step 12  loader    1.1 ms  gpu   61.9 ms
+step 13  loader    1.1 ms  gpu   62.0 ms
+step 14  loader    1.1 ms  gpu   62.0 ms
+step 15  loader    1.2 ms  gpu   62.0 ms
+step 16  loader    1.0 ms  gpu   62.1 ms
+step 17  loader    1.0 ms  gpu   62.0 ms
+step 18  loader    0.9 ms  gpu   62.0 ms
+step 19  loader    0.8 ms  gpu   62.1 ms
+Epoch 65 finished in 18.18 seconds
+Epoch 65, average train loss=0.0033
+Validation for epoch 65 took 6.00 seconds
+Validation MSE: 0.0046
+Train MSE: 0.003310, Val MSE: 0.004560
+--- EPOCH 67/100 ---
+step 0   loader    1.3 ms  gpu   62.8 ms
+step 1   loader    0.9 ms  gpu   62.0 ms
+step 2   loader    0.9 ms  gpu   62.1 ms
+step 3   loader    1.1 ms  gpu   61.9 ms
+step 4   loader    1.0 ms  gpu   62.1 ms
+step 5   loader    1.1 ms  gpu   62.0 ms
+step 6   loader    0.9 ms  gpu   62.0 ms
+step 7   loader    1.0 ms  gpu   62.2 ms
+step 8   loader    1.0 ms  gpu   62.2 ms
+step 9   loader    1.1 ms  gpu   61.9 ms
+step 10  loader    0.9 ms  gpu   62.1 ms
+step 11  loader    1.1 ms  gpu   62.1 ms
+step 12  loader    1.0 ms  gpu   62.2 ms
+step 13  loader    1.1 ms  gpu   62.0 ms
+step 14  loader    1.0 ms  gpu   62.0 ms
+step 15  loader    0.9 ms  gpu   62.0 ms
+step 16  loader    0.9 ms  gpu   62.1 ms
+step 17  loader    0.9 ms  gpu   62.1 ms
+step 18  loader    1.0 ms  gpu   62.2 ms
+step 19  loader    1.1 ms  gpu   62.0 ms
+Epoch 66 finished in 18.18 seconds
+Epoch 66, average train loss=0.0033
+Validation for epoch 66 took 6.01 seconds
+Validation MSE: 0.0044
+Train MSE: 0.003298, Val MSE: 0.004388
+--- EPOCH 68/100 ---
+step 0   loader    1.0 ms  gpu   62.6 ms
+step 1   loader    0.9 ms  gpu   62.0 ms
+step 2   loader    1.2 ms  gpu   62.1 ms
+step 3   loader    0.9 ms  gpu   62.0 ms
+step 4   loader    1.2 ms  gpu   62.0 ms
+step 5   loader    0.9 ms  gpu   62.0 ms
+step 6   loader    1.1 ms  gpu   62.1 ms
+step 7   loader    1.2 ms  gpu   62.2 ms
+step 8   loader    0.9 ms  gpu   62.3 ms
+step 9   loader    0.9 ms  gpu   62.0 ms
+step 10  loader    1.2 ms  gpu   62.4 ms
+step 11  loader    1.3 ms  gpu   62.1 ms
+step 12  loader    1.0 ms  gpu   62.0 ms
+step 13  loader    0.9 ms  gpu   62.0 ms
+step 14  loader    1.0 ms  gpu   62.0 ms
+step 15  loader    1.1 ms  gpu   62.1 ms
+step 16  loader    1.1 ms  gpu   62.6 ms
+step 17  loader    1.1 ms  gpu   62.0 ms
+step 18  loader    1.0 ms  gpu   62.1 ms
+step 19  loader    1.0 ms  gpu   62.1 ms
+Epoch 67 finished in 18.18 seconds
+Epoch 67, average train loss=0.0033
+Validation for epoch 67 took 5.99 seconds
+Validation MSE: 0.0046
+Train MSE: 0.003282, Val MSE: 0.004584
+--- EPOCH 69/100 ---
+step 0   loader    1.4 ms  gpu   62.7 ms
+step 1   loader    1.1 ms  gpu   62.0 ms
+step 2   loader    1.0 ms  gpu   62.1 ms
+step 3   loader    1.0 ms  gpu   62.0 ms
+step 4   loader    0.9 ms  gpu   62.0 ms
+step 5   loader    1.0 ms  gpu   61.9 ms
+step 6   loader    1.1 ms  gpu   62.2 ms
+step 7   loader    0.9 ms  gpu   62.2 ms
+step 8   loader    1.0 ms  gpu   62.2 ms
+step 9   loader    0.9 ms  gpu   62.0 ms
+step 10  loader    0.8 ms  gpu   62.0 ms
+step 11  loader    1.2 ms  gpu   62.0 ms
+step 12  loader    1.1 ms  gpu   62.1 ms
+step 13  loader    1.1 ms  gpu   62.0 ms
+step 14  loader    1.1 ms  gpu   62.1 ms
+step 15  loader    1.0 ms  gpu   62.0 ms
+step 16  loader    1.1 ms  gpu   62.0 ms
+step 17  loader    1.1 ms  gpu   62.0 ms
+step 18  loader    1.0 ms  gpu   62.1 ms
+step 19  loader    0.9 ms  gpu   62.0 ms
+Epoch 68 finished in 18.19 seconds
+Epoch 68, average train loss=0.0033
+Validation for epoch 68 took 6.00 seconds
+Validation MSE: 0.0044
+Train MSE: 0.003261, Val MSE: 0.004366
+--- EPOCH 70/100 ---
+step 0   loader    1.0 ms  gpu   62.8 ms
+step 1   loader    0.9 ms  gpu   62.0 ms
+step 2   loader    1.1 ms  gpu   62.1 ms
+step 3   loader    0.9 ms  gpu   61.8 ms
+step 4   loader    0.9 ms  gpu   62.3 ms
+step 5   loader    0.8 ms  gpu   62.0 ms
+step 6   loader    0.9 ms  gpu   62.1 ms
+step 7   loader    1.0 ms  gpu   61.9 ms
+step 8   loader    0.9 ms  gpu   62.4 ms
+step 9   loader    1.1 ms  gpu   62.6 ms
+step 10  loader    1.0 ms  gpu   62.4 ms
+step 11  loader    1.2 ms  gpu   62.0 ms
+step 12  loader    1.0 ms  gpu   62.1 ms
+step 13  loader    1.1 ms  gpu   62.3 ms
+step 14  loader    1.1 ms  gpu   62.1 ms
+step 15  loader    1.1 ms  gpu   61.8 ms
+step 16  loader    1.0 ms  gpu   62.1 ms
+step 17  loader    0.9 ms  gpu   62.0 ms
+step 18  loader    1.1 ms  gpu   62.0 ms
+step 19  loader    1.2 ms  gpu   62.0 ms
+Epoch 69 finished in 18.17 seconds
+Epoch 69, average train loss=0.0033
+Validation for epoch 69 took 6.00 seconds
+Validation MSE: 0.0042
+Train MSE: 0.003254, Val MSE: 0.004154
+--- EPOCH 71/100 ---
+step 0   loader    1.3 ms  gpu   62.7 ms
+step 1   loader    1.0 ms  gpu   62.0 ms
+step 2   loader    1.2 ms  gpu   62.0 ms
+step 3   loader    1.0 ms  gpu   61.9 ms
+step 4   loader    1.0 ms  gpu   62.1 ms
+step 5   loader    0.9 ms  gpu   62.0 ms
+step 6   loader    1.1 ms  gpu   62.1 ms
+step 7   loader    0.9 ms  gpu   62.0 ms
+step 8   loader    0.8 ms  gpu   62.0 ms
+step 9   loader    0.8 ms  gpu   62.0 ms
+step 10  loader    0.9 ms  gpu   62.3 ms
+step 11  loader    1.0 ms  gpu   62.4 ms
+step 12  loader    0.9 ms  gpu   62.0 ms
+step 13  loader    0.9 ms  gpu   62.2 ms
+step 14  loader    0.8 ms  gpu   62.2 ms
+step 15  loader    0.9 ms  gpu   62.4 ms
+step 16  loader    0.9 ms  gpu   62.0 ms
+step 17  loader    0.8 ms  gpu   62.0 ms
+step 18  loader    1.1 ms  gpu   62.1 ms
+step 19  loader    0.9 ms  gpu   62.0 ms
+Epoch 70 finished in 18.16 seconds
+Epoch 70, average train loss=0.0032
+Validation for epoch 70 took 6.00 seconds
+Validation MSE: 0.0037
+Train MSE: 0.003231, Val MSE: 0.003749
+Saved new best model to /work/nv25/Carrie/cypress_creek/models/model_outputs/unet7_std_model_20250505_162429_epoch70.pth
+--- EPOCH 72/100 ---
+step 0   loader    1.8 ms  gpu   62.4 ms
+step 1   loader    1.1 ms  gpu   61.5 ms
+step 2   loader    1.0 ms  gpu   61.9 ms
+step 3   loader    0.9 ms  gpu   61.7 ms
+step 4   loader    0.9 ms  gpu   61.8 ms
+step 5   loader    1.0 ms  gpu   61.8 ms
+step 6   loader    0.9 ms  gpu   61.9 ms
+step 7   loader    1.3 ms  gpu   61.7 ms
+step 8   loader    0.9 ms  gpu   61.8 ms
+step 9   loader    1.1 ms  gpu   61.8 ms
+step 10  loader    1.2 ms  gpu   61.9 ms
+step 11  loader    1.1 ms  gpu   62.3 ms
+step 12  loader    1.2 ms  gpu   62.2 ms
+step 13  loader    0.9 ms  gpu   61.8 ms
+step 14  loader    1.1 ms  gpu   61.8 ms
+step 15  loader    1.0 ms  gpu   61.9 ms
+step 16  loader    1.1 ms  gpu   62.0 ms
+step 17  loader    1.1 ms  gpu   62.2 ms
+step 18  loader    1.1 ms  gpu   62.0 ms
+step 19  loader    0.9 ms  gpu   61.8 ms
+Epoch 71 finished in 18.21 seconds
+Epoch 71, average train loss=0.0032
+Validation for epoch 71 took 6.06 seconds
+Validation MSE: 0.0037
+Train MSE: 0.003222, Val MSE: 0.003700
+Saved new best model to /work/nv25/Carrie/cypress_creek/models/model_outputs/unet7_std_model_20250505_162429_epoch71.pth
+--- EPOCH 73/100 ---
+step 0   loader    2.0 ms  gpu   62.4 ms
+step 1   loader    1.2 ms  gpu   61.7 ms
+step 2   loader    0.9 ms  gpu   62.0 ms
+step 3   loader    0.9 ms  gpu   61.9 ms
+step 4   loader    1.3 ms  gpu   61.7 ms
+step 5   loader    1.0 ms  gpu   61.6 ms
+step 6   loader    0.9 ms  gpu   61.8 ms
+step 7   loader    1.0 ms  gpu   62.0 ms
+step 8   loader    1.0 ms  gpu   62.4 ms
+step 9   loader    1.6 ms  gpu   63.2 ms
+step 10  loader    1.0 ms  gpu   61.8 ms
+step 11  loader    0.9 ms  gpu   61.8 ms
+step 12  loader    1.0 ms  gpu   61.9 ms
+step 13  loader    1.1 ms  gpu   62.4 ms
+step 14  loader    1.1 ms  gpu   61.9 ms
+step 15  loader    0.9 ms  gpu   62.0 ms
+step 16  loader    1.1 ms  gpu   62.0 ms
+step 17  loader    1.0 ms  gpu   61.9 ms
+step 18  loader    1.1 ms  gpu   61.8 ms
+step 19  loader    1.2 ms  gpu   61.9 ms
+Epoch 72 finished in 18.43 seconds
+Epoch 72, average train loss=0.0032
+Validation for epoch 72 took 6.15 seconds
+Validation MSE: 0.0038
+Train MSE: 0.003213, Val MSE: 0.003838
+--- EPOCH 74/100 ---
+step 0   loader    1.4 ms  gpu   63.6 ms
+step 1   loader    1.4 ms  gpu   62.2 ms
+step 2   loader    0.9 ms  gpu   62.4 ms
+step 3   loader    1.3 ms  gpu   62.2 ms
+step 4   loader    1.1 ms  gpu   62.1 ms
+step 5   loader    1.6 ms  gpu   62.3 ms
+step 6   loader    1.2 ms  gpu   62.2 ms
+step 7   loader    1.5 ms  gpu   62.4 ms
+step 8   loader    1.5 ms  gpu   62.6 ms
+step 9   loader    1.1 ms  gpu   62.0 ms
+step 10  loader    1.1 ms  gpu   62.2 ms
+step 11  loader    1.3 ms  gpu   62.3 ms
+step 12  loader    1.1 ms  gpu   62.1 ms
+step 13  loader    1.3 ms  gpu   62.1 ms
+step 14  loader    1.4 ms  gpu   62.4 ms
+step 15  loader    1.2 ms  gpu   62.3 ms
+step 16  loader    1.0 ms  gpu   62.4 ms
+step 17  loader    1.3 ms  gpu   62.3 ms
+step 18  loader    0.9 ms  gpu   63.6 ms
+step 19  loader    0.9 ms  gpu   62.2 ms
+Epoch 73 finished in 18.53 seconds
+Epoch 73, average train loss=0.0032
+Validation for epoch 73 took 6.16 seconds
+Validation MSE: 0.0040
+Train MSE: 0.003179, Val MSE: 0.003989
+--- EPOCH 75/100 ---
+step 0   loader    1.7 ms  gpu   68.9 ms
+step 1   loader    1.3 ms  gpu   62.5 ms
+step 2   loader    1.1 ms  gpu   63.7 ms
+step 3   loader    1.4 ms  gpu   62.2 ms
+step 4   loader    0.9 ms  gpu   62.3 ms
+step 5   loader    1.5 ms  gpu   62.2 ms
+step 6   loader    1.1 ms  gpu   62.1 ms
+step 7   loader    0.9 ms  gpu   62.8 ms
+step 8   loader    1.4 ms  gpu   62.5 ms
+step 9   loader    0.9 ms  gpu   62.3 ms
+step 10  loader    1.6 ms  gpu   62.5 ms
+step 11  loader    1.4 ms  gpu   62.5 ms
+step 12  loader    1.2 ms  gpu   62.2 ms
+step 13  loader    1.1 ms  gpu   62.0 ms
+step 14  loader    1.4 ms  gpu   62.2 ms
+step 15  loader    0.9 ms  gpu   62.2 ms
+step 16  loader    1.3 ms  gpu   63.3 ms
+step 17  loader    1.1 ms  gpu   63.0 ms
+step 18  loader    1.3 ms  gpu   63.3 ms
+step 19  loader    1.6 ms  gpu   68.5 ms
+Epoch 74 finished in 18.68 seconds
+Epoch 74, average train loss=0.0031
+Validation for epoch 74 took 6.22 seconds
+Validation MSE: 0.0040
+Train MSE: 0.003139, Val MSE: 0.004018
+--- EPOCH 76/100 ---
+step 0   loader    1.7 ms  gpu   62.8 ms
+step 1   loader    0.9 ms  gpu   62.0 ms
+step 2   loader    1.6 ms  gpu   62.2 ms
+step 3   loader    0.9 ms  gpu   62.2 ms
+step 4   loader    0.9 ms  gpu   62.4 ms
+step 5   loader    1.2 ms  gpu   62.4 ms
+step 6   loader    1.1 ms  gpu   62.5 ms
+step 7   loader    0.9 ms  gpu   62.3 ms
+step 8   loader    1.4 ms  gpu   62.5 ms
+step 9   loader    0.9 ms  gpu   62.4 ms
+step 10  loader    0.9 ms  gpu   62.9 ms
+step 11  loader    2.9 ms  gpu   62.9 ms
+step 12  loader    1.0 ms  gpu   62.3 ms
+step 13  loader    1.1 ms  gpu   62.2 ms
+step 14  loader    1.1 ms  gpu   62.1 ms
+step 15  loader    1.2 ms  gpu   62.7 ms
+step 16  loader    1.0 ms  gpu   62.4 ms
+step 17  loader    0.9 ms  gpu   62.2 ms
+step 18  loader    1.1 ms  gpu   62.3 ms
+step 19  loader    1.2 ms  gpu   62.0 ms
+Epoch 75 finished in 18.87 seconds
+Epoch 75, average train loss=0.0031
+Validation for epoch 75 took 6.35 seconds
+Validation MSE: 0.0040
+Train MSE: 0.003120, Val MSE: 0.003959
+--- EPOCH 77/100 ---
+step 0   loader    1.1 ms  gpu   62.8 ms
+step 1   loader    1.4 ms  gpu  100.8 ms
+step 2   loader   32.9 ms  gpu   87.3 ms
+step 3   loader   55.4 ms  gpu   85.7 ms
+step 4   loader   54.4 ms  gpu   71.3 ms
+step 5   loader    0.9 ms  gpu   61.9 ms
+step 6   loader    1.3 ms  gpu   62.3 ms
+step 7   loader    1.3 ms  gpu   62.0 ms
+step 8   loader    0.9 ms  gpu   61.9 ms
+step 9   loader    1.0 ms  gpu   62.2 ms
+step 10  loader    1.3 ms  gpu   62.4 ms
+step 11  loader    1.1 ms  gpu   62.1 ms
+step 12  loader    0.9 ms  gpu   62.7 ms
+step 13  loader    0.9 ms  gpu   63.1 ms
+step 14  loader    0.9 ms  gpu   62.1 ms
+step 15  loader    1.4 ms  gpu   62.2 ms
+step 16  loader    1.1 ms  gpu   62.1 ms
+step 17  loader    1.2 ms  gpu   62.3 ms
+step 18  loader    1.9 ms  gpu   62.5 ms
+step 19  loader    0.9 ms  gpu   62.2 ms
+Epoch 76 finished in 20.63 seconds
+Epoch 76, average train loss=0.0031
+Validation for epoch 76 took 7.05 seconds
+Validation MSE: 0.0039
+Train MSE: 0.003104, Val MSE: 0.003862
+--- EPOCH 78/100 ---
+step 0   loader    9.1 ms  gpu  135.6 ms
+step 1   loader   11.4 ms  gpu  135.4 ms
+step 2   loader    6.4 ms  gpu  139.9 ms
+step 3   loader    4.6 ms  gpu  137.7 ms
+step 4   loader    4.3 ms  gpu  138.2 ms
+step 5   loader    4.2 ms  gpu  141.0 ms
+step 6   loader    4.6 ms  gpu  140.2 ms
+step 7   loader    4.5 ms  gpu  138.6 ms
+step 8   loader    4.6 ms  gpu  138.5 ms
+step 9   loader    4.2 ms  gpu  141.1 ms
+step 10  loader    4.3 ms  gpu  138.7 ms
+step 11  loader    4.4 ms  gpu  139.6 ms
+step 12  loader    4.2 ms  gpu  139.0 ms
+step 13  loader    4.4 ms  gpu  139.8 ms
+step 14  loader    4.4 ms  gpu  140.3 ms
+step 15  loader    4.2 ms  gpu  139.1 ms
+step 16  loader    4.2 ms  gpu  141.3 ms
+step 17  loader    4.4 ms  gpu  140.6 ms
+step 18  loader    4.4 ms  gpu  140.8 ms
+step 19  loader    4.3 ms  gpu  142.9 ms
+Epoch 77 finished in 36.74 seconds
+Epoch 77, average train loss=0.0031
+Validation for epoch 77 took 6.87 seconds
+Validation MSE: 0.0038
+Train MSE: 0.003085, Val MSE: 0.003785
+--- EPOCH 79/100 ---
+step 0   loader   24.1 ms  gpu  104.7 ms
+step 1   loader   17.3 ms  gpu   61.9 ms
+step 2   loader    1.2 ms  gpu   62.6 ms
+step 3   loader    1.0 ms  gpu   63.3 ms
+step 4   loader    1.1 ms  gpu   62.1 ms
+step 5   loader    0.9 ms  gpu   62.0 ms
+step 6   loader    0.9 ms  gpu   62.1 ms
+step 7   loader    1.0 ms  gpu   62.1 ms
+step 8   loader    1.1 ms  gpu   62.1 ms
+step 9   loader    1.2 ms  gpu   73.9 ms
+step 10  loader   17.0 ms  gpu  105.3 ms
+step 11  loader   16.6 ms  gpu   62.8 ms
+step 12  loader    1.5 ms  gpu   62.4 ms
+step 13  loader    1.3 ms  gpu   63.1 ms
+step 14  loader    1.4 ms  gpu   62.2 ms
+step 15  loader    1.2 ms  gpu   62.0 ms
+step 16  loader    1.0 ms  gpu   62.1 ms
+step 17  loader    1.0 ms  gpu   62.0 ms
+step 18  loader    1.5 ms  gpu   72.8 ms
+step 19  loader   16.3 ms  gpu  101.2 ms
+Epoch 78 finished in 21.04 seconds
+Epoch 78, average train loss=0.0031
+Validation for epoch 78 took 6.97 seconds
+Validation MSE: 0.0041
+Train MSE: 0.003079, Val MSE: 0.004098
+--- EPOCH 80/100 ---
+step 0   loader   24.7 ms  gpu   88.7 ms
+step 1   loader    1.1 ms  gpu   64.1 ms
+step 2   loader    1.1 ms  gpu   62.5 ms
+step 3   loader    0.9 ms  gpu   62.0 ms
+step 4   loader    0.9 ms  gpu   62.1 ms
+step 5   loader    1.1 ms  gpu   62.1 ms
+step 6   loader    0.9 ms  gpu   62.9 ms
+step 7   loader    8.9 ms  gpu   93.4 ms
+step 8   loader   17.3 ms  gpu   62.5 ms
+step 9   loader    0.9 ms  gpu   63.2 ms
+step 10  loader    1.0 ms  gpu   62.0 ms
+step 11  loader    1.2 ms  gpu   62.0 ms
+step 12  loader    1.0 ms  gpu   62.3 ms
+step 13  loader    1.2 ms  gpu   62.3 ms
+step 14  loader    1.0 ms  gpu   74.4 ms
+step 15  loader   14.7 ms  gpu  104.6 ms
+step 16  loader   17.1 ms  gpu   62.6 ms
+step 17  loader    1.1 ms  gpu   63.2 ms
+step 18  loader    1.1 ms  gpu   62.0 ms
+step 19  loader    1.0 ms  gpu   62.0 ms
+Epoch 79 finished in 20.39 seconds
+Epoch 79, average train loss=0.0030
+Validation for epoch 79 took 6.74 seconds
+Validation MSE: 0.0038
+Train MSE: 0.003036, Val MSE: 0.003825
+--- EPOCH 81/100 ---
+step 0   loader    1.0 ms  gpu   62.7 ms
+step 1   loader    0.9 ms  gpu   62.6 ms
+step 2   loader    1.0 ms  gpu   92.9 ms
+step 3   loader   26.3 ms  gpu   96.7 ms
+step 4   loader    1.0 ms  gpu   61.9 ms
+step 5   loader    1.1 ms  gpu   62.6 ms
+step 6   loader    1.1 ms  gpu   63.4 ms
+step 7   loader    0.9 ms  gpu   62.0 ms
+step 8   loader    0.8 ms  gpu   62.4 ms
+step 9   loader    0.9 ms  gpu   62.0 ms
+step 10  loader    1.1 ms  gpu   62.1 ms
+step 11  loader    0.9 ms  gpu   62.0 ms
+step 12  loader    0.9 ms  gpu   62.8 ms
+step 13  loader    1.0 ms  gpu   62.2 ms
+step 14  loader    1.0 ms  gpu   62.2 ms
+step 15  loader    1.0 ms  gpu   62.0 ms
+step 16  loader    1.1 ms  gpu   62.2 ms
+step 17  loader    1.1 ms  gpu   82.7 ms
+step 18  loader   10.5 ms  gpu   98.8 ms
+step 19  loader   21.9 ms  gpu   75.4 ms
+Epoch 80 finished in 38.83 seconds
+Epoch 80, average train loss=0.0030
+Validation for epoch 80 took 14.91 seconds
+Validation MSE: 0.0038
+Train MSE: 0.003037, Val MSE: 0.003836
+--- EPOCH 82/100 ---
+step 0   loader   25.5 ms  gpu  103.8 ms
+step 1   loader   17.2 ms  gpu  103.7 ms
+step 2   loader   16.7 ms  gpu   93.8 ms
+step 3   loader   25.3 ms  gpu   99.9 ms
+step 4   loader   18.8 ms  gpu  102.2 ms
+step 5   loader   16.7 ms  gpu  101.5 ms
+step 6   loader   16.8 ms  gpu   97.9 ms
+step 7   loader   24.3 ms  gpu   92.2 ms
+step 8   loader   25.8 ms  gpu  105.0 ms
+step 9   loader   17.3 ms  gpu  102.0 ms
+step 10  loader   16.9 ms  gpu  101.6 ms
+step 11  loader   15.9 ms  gpu  103.1 ms
+step 12  loader   19.7 ms  gpu  104.1 ms
+step 13  loader   17.2 ms  gpu  103.8 ms
+step 14  loader   16.7 ms  gpu  101.6 ms
+step 15  loader   16.9 ms  gpu  102.6 ms
+step 16  loader   16.6 ms  gpu  103.1 ms
+step 17  loader   17.2 ms  gpu  104.0 ms
+step 18  loader   17.2 ms  gpu  101.8 ms
+step 19  loader   17.0 ms  gpu  103.7 ms
+Epoch 81 finished in 40.44 seconds
+Epoch 81, average train loss=0.0030
+Validation for epoch 81 took 14.99 seconds
+Validation MSE: 0.0038
+Train MSE: 0.003009, Val MSE: 0.003788
+--- EPOCH 83/100 ---
+step 0   loader   19.5 ms  gpu  102.7 ms
+step 1   loader   16.2 ms  gpu  102.2 ms
+step 2   loader   16.9 ms  gpu  100.8 ms
+step 3   loader   18.1 ms  gpu   93.6 ms
+step 4   loader   26.2 ms  gpu   95.5 ms
+step 5   loader   26.4 ms  gpu   95.6 ms
+step 6   loader   25.7 ms  gpu  101.6 ms
+step 7   loader   16.7 ms  gpu  101.3 ms
+step 8   loader   17.2 ms  gpu  102.6 ms
+step 9   loader   16.6 ms  gpu  103.6 ms
+step 10  loader   17.3 ms  gpu  104.0 ms
+step 11  loader   17.3 ms  gpu  104.1 ms
+step 12  loader   16.8 ms  gpu  103.6 ms
+step 13  loader   17.3 ms  gpu  106.0 ms
+step 14  loader   17.3 ms  gpu  104.3 ms
+step 15  loader   16.1 ms  gpu  103.1 ms
+step 16  loader   17.2 ms  gpu  102.2 ms
+step 17  loader   16.7 ms  gpu  101.7 ms
+step 18  loader   17.1 ms  gpu  102.8 ms
+step 19  loader   19.1 ms  gpu  105.5 ms
+Epoch 82 finished in 39.05 seconds
+Epoch 82, average train loss=0.0030
+Validation for epoch 82 took 15.40 seconds
+Validation MSE: 0.0038
+Train MSE: 0.002980, Val MSE: 0.003758
+--- EPOCH 84/100 ---
+step 0   loader   25.6 ms  gpu  103.8 ms
+step 1   loader   16.6 ms  gpu   99.0 ms
+step 2   loader   21.3 ms  gpu   96.4 ms
+step 3   loader   26.1 ms  gpu   95.3 ms
+step 4   loader   26.3 ms  gpu   96.3 ms
+step 5   loader   26.3 ms  gpu   96.1 ms
+step 6   loader   26.2 ms  gpu   94.0 ms
+step 7   loader   25.4 ms  gpu   92.8 ms
+step 8   loader   25.3 ms  gpu   95.5 ms
+step 9   loader   25.7 ms  gpu   93.4 ms
+step 10  loader   26.2 ms  gpu   97.6 ms
+step 11  loader    6.8 ms  gpu   94.4 ms
+step 12  loader   17.4 ms  gpu  102.4 ms
+step 13  loader   17.0 ms  gpu   94.6 ms
+step 14  loader   25.6 ms  gpu   98.4 ms
+step 15  loader   20.9 ms  gpu  102.4 ms
+step 16  loader   18.5 ms  gpu  103.2 ms
+step 17  loader   16.8 ms  gpu  101.2 ms
+step 18  loader   17.1 ms  gpu   97.3 ms
+step 19  loader   25.9 ms  gpu  103.0 ms
+Epoch 83 finished in 40.01 seconds
+Epoch 83, average train loss=0.0030
+Validation for epoch 83 took 15.31 seconds
+Validation MSE: 0.0039
+Train MSE: 0.002984, Val MSE: 0.003949
+--- EPOCH 85/100 ---
+step 0   loader   17.5 ms  gpu  105.0 ms
+step 1   loader   17.5 ms  gpu   95.9 ms
+step 2   loader   26.0 ms  gpu   97.0 ms
+step 3   loader   26.1 ms  gpu   96.4 ms
+step 4   loader   26.3 ms  gpu   93.7 ms
+step 5   loader   25.3 ms  gpu   95.6 ms
+step 6   loader   26.4 ms  gpu   95.8 ms
+step 7   loader   26.2 ms  gpu   96.4 ms
+step 8   loader   26.2 ms  gpu   93.9 ms
+step 9   loader    4.3 ms  gpu  100.4 ms
+step 10  loader   17.4 ms  gpu  101.7 ms
+step 11  loader   17.5 ms  gpu   96.1 ms
+step 12  loader   26.2 ms  gpu   97.8 ms
+step 13  loader   25.6 ms  gpu   94.0 ms
+step 14  loader   26.2 ms  gpu   93.5 ms
+step 15  loader   25.5 ms  gpu  100.3 ms
+step 16  loader   18.8 ms  gpu   98.4 ms
+step 17  loader   21.9 ms  gpu  100.1 ms
+step 18  loader   18.8 ms  gpu  104.1 ms
+step 19  loader   17.3 ms  gpu  101.8 ms
+Epoch 84 finished in 39.15 seconds
+Epoch 84, average train loss=0.0030
+Validation for epoch 84 took 15.61 seconds
+Validation MSE: 0.0037
+Train MSE: 0.002954, Val MSE: 0.003674
+Saved new best model to /work/nv25/Carrie/cypress_creek/models/model_outputs/unet7_std_model_20250505_162429_epoch84.pth
+--- EPOCH 86/100 ---
+step 0   loader   15.7 ms  gpu  102.8 ms
+step 1   loader   17.5 ms  gpu  100.1 ms
+step 2   loader   19.2 ms  gpu  102.6 ms
+step 3   loader   16.3 ms  gpu  100.4 ms
+step 4   loader   21.7 ms  gpu  102.5 ms
+step 5   loader   19.6 ms  gpu  104.4 ms
+step 6   loader   17.2 ms  gpu  102.4 ms
+step 7   loader   16.0 ms  gpu   94.6 ms
+step 8   loader   25.4 ms  gpu   93.8 ms
+step 9   loader   25.6 ms  gpu   99.0 ms
+step 10  loader   21.3 ms  gpu  102.1 ms
+step 11  loader   17.0 ms  gpu  102.0 ms
+step 12  loader   16.6 ms  gpu  101.5 ms
+step 13  loader   16.8 ms  gpu  103.5 ms
+step 14  loader   16.9 ms  gpu  100.5 ms
+step 15  loader   19.1 ms  gpu  103.8 ms
+step 16  loader   17.2 ms  gpu  103.6 ms
+step 17  loader   16.3 ms  gpu  102.8 ms
+step 18  loader   17.2 ms  gpu  101.8 ms
+step 19  loader   16.4 ms  gpu  102.3 ms
+Epoch 85 finished in 40.35 seconds
+Epoch 85, average train loss=0.0029
+Validation for epoch 85 took 15.20 seconds
+Validation MSE: 0.0039
+Train MSE: 0.002931, Val MSE: 0.003921
+--- EPOCH 87/100 ---
+step 0   loader   23.0 ms  gpu  103.3 ms
+step 1   loader   17.0 ms  gpu  106.6 ms
+step 2   loader   15.2 ms  gpu  104.1 ms
+step 3   loader   17.2 ms  gpu  103.5 ms
+step 4   loader   17.4 ms  gpu  102.8 ms
+step 5   loader   19.7 ms  gpu  100.1 ms
+step 6   loader   21.7 ms  gpu   96.4 ms
+step 7   loader   26.2 ms  gpu   96.9 ms
+step 8   loader   26.6 ms  gpu  105.2 ms
+step 9   loader   16.6 ms  gpu  102.4 ms
+step 10  loader   16.9 ms  gpu  101.7 ms
+step 11  loader   17.4 ms  gpu  101.0 ms
+step 12  loader   18.5 ms  gpu  104.1 ms
+step 13  loader   17.3 ms  gpu  101.7 ms
+step 14  loader   17.3 ms  gpu  104.6 ms
+step 15  loader   16.7 ms  gpu  102.6 ms
+step 16  loader   17.3 ms  gpu  105.4 ms
+step 17  loader   17.0 ms  gpu  102.6 ms
+step 18  loader   16.7 ms  gpu  103.5 ms
+step 19  loader   16.7 ms  gpu  103.2 ms
+Epoch 86 finished in 40.59 seconds
+Epoch 86, average train loss=0.0029
+Validation for epoch 86 took 15.09 seconds
+Validation MSE: 0.0037
+Train MSE: 0.002920, Val MSE: 0.003736
+--- EPOCH 88/100 ---
+step 0   loader   24.8 ms  gpu  104.0 ms
+step 1   loader   17.3 ms  gpu   95.1 ms
+step 2   loader   26.0 ms  gpu  101.8 ms
+step 3   loader   19.6 ms  gpu  104.5 ms
+step 4   loader   17.6 ms  gpu  104.5 ms
+step 5   loader   17.4 ms  gpu  105.6 ms
+step 6   loader   15.9 ms  gpu   96.2 ms
+step 7   loader   26.4 ms  gpu   96.3 ms
+step 8   loader   25.5 ms  gpu  102.7 ms
+step 9   loader   16.7 ms  gpu  101.5 ms
+step 10  loader   17.0 ms  gpu  102.3 ms
+step 11  loader   16.8 ms  gpu  103.3 ms
+step 12  loader   17.0 ms  gpu  104.3 ms
+step 13  loader   17.7 ms  gpu  105.5 ms
+step 14  loader   17.3 ms  gpu  105.2 ms
+step 15  loader   17.0 ms  gpu  104.4 ms
+step 16  loader   16.6 ms  gpu  103.0 ms
+step 17  loader   16.8 ms  gpu  103.8 ms
+step 18  loader   17.2 ms  gpu  102.8 ms
+step 19  loader   16.9 ms  gpu  102.3 ms
+Epoch 87 finished in 39.74 seconds
+Epoch 87, average train loss=0.0029
+Validation for epoch 87 took 15.37 seconds
+Validation MSE: 0.0040
+Train MSE: 0.002898, Val MSE: 0.003997
+--- EPOCH 89/100 ---
+step 0   loader   24.1 ms  gpu  105.9 ms
+step 1   loader   17.1 ms  gpu  103.0 ms
+step 2   loader   16.7 ms  gpu  102.8 ms
+step 3   loader   16.9 ms  gpu  100.9 ms
+step 4   loader   19.4 ms  gpu   97.3 ms
+step 5   loader   23.9 ms  gpu  105.1 ms
+step 6   loader   17.4 ms  gpu  107.2 ms
+step 7   loader   14.6 ms  gpu  104.5 ms
+step 8   loader   17.3 ms  gpu  102.2 ms
+step 9   loader   19.1 ms  gpu  103.8 ms
+step 10  loader   17.5 ms  gpu  104.1 ms
+step 11  loader   17.6 ms  gpu  104.4 ms
+step 12  loader   28.8 ms  gpu   89.9 ms
+step 13  loader   14.9 ms  gpu  102.3 ms
+step 14  loader   17.0 ms  gpu  102.9 ms
+step 15  loader   17.2 ms  gpu  101.4 ms
+step 16  loader   17.2 ms  gpu  104.6 ms
+step 17  loader   17.6 ms  gpu  101.9 ms
+step 18  loader   17.0 ms  gpu  104.2 ms
+step 19  loader   17.5 ms  gpu  104.8 ms
+Epoch 88 finished in 40.45 seconds
+Epoch 88, average train loss=0.0029
+Validation for epoch 88 took 15.36 seconds
+Validation MSE: 0.0040
+Train MSE: 0.002875, Val MSE: 0.004044
+--- EPOCH 90/100 ---
+step 0   loader   16.4 ms  gpu  104.1 ms
+step 1   loader   17.4 ms  gpu  103.2 ms
+step 2   loader   18.8 ms  gpu  104.7 ms
+step 3   loader   17.1 ms  gpu  105.1 ms
+step 4   loader   17.1 ms  gpu  104.7 ms
+step 5   loader   17.4 ms  gpu  105.4 ms
+step 6   loader   17.4 ms  gpu  104.4 ms
+step 7   loader   17.2 ms  gpu  104.7 ms
+step 8   loader   17.2 ms  gpu  105.9 ms
+step 9   loader   17.6 ms  gpu  105.4 ms
+step 10  loader   16.7 ms  gpu  104.0 ms
+step 11  loader   17.1 ms  gpu  102.7 ms
+step 12  loader   16.6 ms  gpu  104.2 ms
+step 13  loader   17.4 ms  gpu  102.8 ms
+step 14  loader   24.5 ms  gpu   95.4 ms
+step 15  loader   17.6 ms  gpu  105.0 ms
+step 16  loader   17.4 ms  gpu  104.0 ms
+step 17  loader   17.1 ms  gpu  104.4 ms
+step 18  loader   17.1 ms  gpu  101.6 ms
+step 19  loader   17.1 ms  gpu  104.0 ms
+Epoch 89 finished in 40.22 seconds
+Epoch 89, average train loss=0.0028
+Validation for epoch 89 took 15.18 seconds
+Validation MSE: 0.0037
+Train MSE: 0.002844, Val MSE: 0.003725
+--- EPOCH 91/100 ---
+step 0   loader   44.2 ms  gpu  101.8 ms
+step 1   loader   17.6 ms  gpu  101.3 ms
+step 2   loader   28.9 ms  gpu   85.2 ms
+step 3   loader   23.6 ms  gpu   91.0 ms
+step 4   loader   16.7 ms  gpu  101.9 ms
+step 5   loader   34.9 ms  gpu  101.9 ms
+step 6   loader   19.3 ms  gpu  101.5 ms
+step 7   loader   17.0 ms  gpu  101.6 ms
+step 8   loader   16.8 ms  gpu  100.6 ms
+step 9   loader   16.9 ms  gpu  103.6 ms
+step 10  loader   16.9 ms  gpu  101.5 ms
+step 11  loader   17.1 ms  gpu  101.7 ms
+step 12  loader   17.0 ms  gpu  101.9 ms
+step 13  loader   16.7 ms  gpu  102.5 ms
+step 14  loader   16.8 ms  gpu   97.6 ms
+step 15  loader   21.0 ms  gpu  103.1 ms
+step 16  loader   16.6 ms  gpu  101.7 ms
+step 17  loader   16.8 ms  gpu  101.8 ms
+step 18  loader   16.7 ms  gpu  101.9 ms
+step 19  loader   17.1 ms  gpu  101.7 ms
+Epoch 90 finished in 39.83 seconds
+Epoch 90, average train loss=0.0029
+Validation for epoch 90 took 14.95 seconds
+Validation MSE: 0.0034
+Train MSE: 0.002850, Val MSE: 0.003437
+Saved new best model to /work/nv25/Carrie/cypress_creek/models/model_outputs/unet7_std_model_20250505_162429_epoch90.pth
+--- EPOCH 92/100 ---
+step 0   loader    5.2 ms  gpu  103.3 ms
+step 1   loader   17.3 ms  gpu  102.0 ms
+step 2   loader   16.9 ms  gpu  102.9 ms
+step 3   loader   16.6 ms  gpu  102.8 ms
+step 4   loader   16.6 ms  gpu  102.2 ms
+step 5   loader   19.6 ms  gpu  100.5 ms
+step 6   loader   17.4 ms  gpu  102.1 ms
+step 7   loader   16.6 ms  gpu  100.7 ms
+step 8   loader   18.3 ms  gpu  104.0 ms
+step 9   loader   39.0 ms  gpu   93.5 ms
+step 10  loader    8.8 ms  gpu   92.6 ms
+step 11  loader   17.2 ms  gpu  101.1 ms
+step 12  loader   17.3 ms  gpu  106.8 ms
+step 13  loader    4.4 ms  gpu  137.9 ms
+step 14  loader    4.2 ms  gpu  137.3 ms
+step 15  loader    4.1 ms  gpu  139.7 ms
+step 16  loader    4.3 ms  gpu  137.8 ms
+step 17  loader    4.4 ms  gpu  138.1 ms
+step 18  loader    4.5 ms  gpu  137.8 ms
+step 19  loader    4.7 ms  gpu  140.8 ms
+Epoch 91 finished in 41.21 seconds
+Epoch 91, average train loss=0.0028
+Validation for epoch 91 took 14.38 seconds
+Validation MSE: 0.0036
+Train MSE: 0.002822, Val MSE: 0.003612
+--- EPOCH 93/100 ---
+step 0   loader   23.5 ms  gpu  101.5 ms
+step 1   loader   17.8 ms  gpu  100.5 ms
+step 2   loader   17.4 ms  gpu  104.4 ms
+step 3   loader   16.5 ms  gpu  102.9 ms
+step 4   loader   16.9 ms  gpu  103.5 ms
+step 5   loader   17.1 ms  gpu  102.0 ms
+step 6   loader   16.9 ms  gpu  104.5 ms
+step 7   loader   17.3 ms  gpu  106.1 ms
+step 8   loader   17.4 ms  gpu  102.1 ms
+step 9   loader   16.9 ms  gpu  104.8 ms
+step 10  loader   17.2 ms  gpu  103.0 ms
+step 11  loader   16.9 ms  gpu  104.4 ms
+step 12  loader   17.5 ms  gpu  108.4 ms
+step 13  loader    3.8 ms  gpu  140.9 ms
+step 14  loader    4.5 ms  gpu  137.0 ms
+step 15  loader    4.3 ms  gpu  138.2 ms
+step 16  loader    4.2 ms  gpu  140.7 ms
+step 17  loader    4.3 ms  gpu  141.6 ms
+step 18  loader    4.3 ms  gpu  136.0 ms
+step 19  loader    4.4 ms  gpu  138.4 ms
+Epoch 92 finished in 40.74 seconds
+Epoch 92, average train loss=0.0028
+Validation for epoch 92 took 14.39 seconds
+Validation MSE: 0.0035
+Train MSE: 0.002833, Val MSE: 0.003495
+--- EPOCH 94/100 ---
+step 0   loader   15.6 ms  gpu  101.0 ms
+step 1   loader   17.4 ms  gpu  105.3 ms
+step 2   loader   17.0 ms  gpu  102.4 ms
+step 3   loader   16.9 ms  gpu  102.6 ms
+step 4   loader   16.9 ms  gpu  101.6 ms
+step 5   loader   19.0 ms  gpu  105.1 ms
+step 6   loader   17.1 ms  gpu  104.9 ms
+step 7   loader   17.2 ms  gpu  103.8 ms
+step 8   loader   17.1 ms  gpu  104.1 ms
+step 9   loader   16.9 ms  gpu   97.1 ms
+step 10  loader   26.2 ms  gpu   98.4 ms
+step 11  loader   21.1 ms  gpu  101.8 ms
+step 12  loader   28.4 ms  gpu   62.1 ms
+step 13  loader    1.0 ms  gpu   62.6 ms
+step 14  loader    2.0 ms  gpu   62.1 ms
+step 15  loader    0.9 ms  gpu   64.8 ms
+step 16  loader    0.9 ms  gpu   62.3 ms
+step 17  loader    1.1 ms  gpu   62.3 ms
+step 18  loader    0.9 ms  gpu   62.0 ms
+step 19  loader    0.9 ms  gpu   61.9 ms
+Epoch 93 finished in 39.30 seconds
+Epoch 93, average train loss=0.0028
+Validation for epoch 93 took 14.83 seconds
+Validation MSE: 0.0035
+Train MSE: 0.002802, Val MSE: 0.003519
+--- EPOCH 95/100 ---
+step 0   loader   25.1 ms  gpu  101.6 ms
+step 1   loader   17.0 ms  gpu  105.7 ms
+step 2   loader   17.1 ms  gpu  105.0 ms
+step 3   loader   16.9 ms  gpu  102.3 ms
+step 4   loader   16.9 ms  gpu  100.8 ms
+step 5   loader   19.5 ms  gpu  102.5 ms
+step 6   loader   16.5 ms  gpu  101.3 ms
+step 7   loader   16.2 ms  gpu  102.9 ms
+step 8   loader   16.6 ms  gpu  101.9 ms
+step 9   loader   17.0 ms  gpu  102.7 ms
+step 10  loader   16.3 ms  gpu  101.4 ms
+step 11  loader   16.7 ms  gpu  102.4 ms
+step 12  loader   16.9 ms  gpu  102.0 ms
+step 13  loader   16.6 ms  gpu  101.7 ms
+step 14  loader   16.6 ms  gpu  102.6 ms
+step 15  loader   17.2 ms  gpu  104.0 ms
+step 16  loader   17.2 ms  gpu  100.8 ms
+step 17  loader   16.8 ms  gpu  101.6 ms
+step 18  loader   16.8 ms  gpu  102.6 ms
+step 19  loader   16.9 ms  gpu  100.4 ms
+Epoch 94 finished in 40.48 seconds
+Epoch 94, average train loss=0.0028
+Validation for epoch 94 took 14.95 seconds
+Validation MSE: 0.0036
+Train MSE: 0.002789, Val MSE: 0.003618
+--- EPOCH 96/100 ---
+step 0   loader    5.8 ms  gpu   99.9 ms
+step 1   loader   16.3 ms  gpu  103.3 ms
+step 2   loader   17.0 ms  gpu  101.7 ms
+step 3   loader   16.9 ms  gpu  103.5 ms
+step 4   loader   17.6 ms  gpu  102.6 ms
+step 5   loader   17.1 ms  gpu  101.6 ms
+step 6   loader   17.7 ms  gpu  101.9 ms
+step 7   loader   16.9 ms  gpu  101.6 ms
+step 8   loader   17.6 ms  gpu  104.1 ms
+step 9   loader   17.2 ms  gpu  101.9 ms
+step 10  loader   16.7 ms  gpu  102.8 ms
+step 11  loader   17.0 ms  gpu  101.1 ms
+step 12  loader   19.7 ms  gpu  102.6 ms
+step 13  loader   17.0 ms  gpu  102.4 ms
+step 14  loader   17.5 ms  gpu  102.6 ms
+step 15  loader   16.7 ms  gpu  101.8 ms
+step 16  loader   17.2 ms  gpu  102.7 ms
+step 17  loader   16.8 ms  gpu  102.9 ms
+step 18  loader   17.2 ms  gpu  102.2 ms
+step 19  loader   16.9 ms  gpu  103.7 ms
+Epoch 95 finished in 40.43 seconds
+Epoch 95, average train loss=0.0028
+Validation for epoch 95 took 14.90 seconds
+Validation MSE: 0.0034
+Train MSE: 0.002774, Val MSE: 0.003391
+Saved new best model to /work/nv25/Carrie/cypress_creek/models/model_outputs/unet7_std_model_20250505_162429_epoch95.pth
+--- EPOCH 97/100 ---
+step 0   loader    6.5 ms  gpu  105.5 ms
+step 1   loader   17.3 ms  gpu  103.1 ms
+step 2   loader   16.0 ms  gpu  104.0 ms
+step 3   loader   17.1 ms  gpu  105.1 ms
+step 4   loader   17.2 ms  gpu  105.2 ms
+step 5   loader   17.4 ms  gpu  102.1 ms
+step 6   loader   16.7 ms  gpu  104.5 ms
+step 7   loader   17.3 ms  gpu  101.3 ms
+step 8   loader   17.1 ms  gpu  101.2 ms
+step 9   loader   17.4 ms  gpu  101.4 ms
+step 10  loader   17.7 ms  gpu  101.6 ms
+step 11  loader   17.1 ms  gpu  104.5 ms
+step 12  loader   17.4 ms  gpu  103.2 ms
+step 13  loader   16.7 ms  gpu  102.7 ms
+step 14  loader   16.6 ms  gpu   99.8 ms
+step 15  loader   21.4 ms  gpu  102.0 ms
+step 16  loader   16.5 ms  gpu  106.1 ms
+step 17  loader    4.6 ms  gpu  137.5 ms
+step 18  loader    4.1 ms  gpu  138.1 ms
+step 19  loader    4.3 ms  gpu  138.1 ms
+Epoch 96 finished in 40.73 seconds
+Epoch 96, average train loss=0.0028
+Validation for epoch 96 took 14.45 seconds
+Validation MSE: 0.0039
+Train MSE: 0.002761, Val MSE: 0.003881
+--- EPOCH 98/100 ---
+step 0   loader   25.2 ms  gpu  104.8 ms
+step 1   loader   17.4 ms  gpu  101.3 ms
+step 2   loader   17.2 ms  gpu  104.2 ms
+step 3   loader   17.2 ms  gpu  102.4 ms
+step 4   loader   18.2 ms  gpu  100.2 ms
+step 5   loader   16.9 ms  gpu  100.6 ms
+step 6   loader   16.9 ms  gpu  103.3 ms
+step 7   loader   16.9 ms  gpu  101.8 ms
+step 8   loader   16.7 ms  gpu  102.8 ms
+step 9   loader   17.5 ms  gpu  101.8 ms
+step 10  loader   16.9 ms  gpu  101.2 ms
+step 11  loader   16.3 ms  gpu  101.9 ms
+step 12  loader   16.3 ms  gpu  100.8 ms
+step 13  loader   16.8 ms  gpu  101.3 ms
+step 14  loader   16.6 ms  gpu  103.0 ms
+step 15  loader   17.0 ms  gpu  104.8 ms
+step 16  loader   17.3 ms  gpu  104.5 ms
+step 17  loader   17.3 ms  gpu  105.5 ms
+step 18  loader    3.9 ms  gpu  138.7 ms
+step 19  loader   15.4 ms  gpu  131.1 ms
+Epoch 97 finished in 40.75 seconds
+Epoch 97, average train loss=0.0027
+Validation for epoch 97 took 14.52 seconds
+Validation MSE: 0.0038
+Train MSE: 0.002744, Val MSE: 0.003760
+--- EPOCH 99/100 ---
+step 0   loader   24.6 ms  gpu  101.9 ms
+step 1   loader   16.5 ms  gpu  101.8 ms
+step 2   loader   16.7 ms  gpu  102.1 ms
+step 3   loader   17.0 ms  gpu  102.3 ms
+step 4   loader   17.0 ms  gpu  103.2 ms
+step 5   loader   17.0 ms  gpu  102.9 ms
+step 6   loader   17.5 ms  gpu  101.9 ms
+step 7   loader   17.3 ms  gpu   98.3 ms
+step 8   loader   20.8 ms  gpu  102.5 ms
+step 9   loader   15.9 ms  gpu  101.0 ms
+step 10  loader   19.1 ms  gpu  102.3 ms
+step 11  loader   17.5 ms  gpu  101.6 ms
+step 12  loader   16.6 ms  gpu  101.4 ms
+step 13  loader   16.9 ms  gpu  101.6 ms
+step 14  loader   16.8 ms  gpu  101.6 ms
+step 15  loader   17.0 ms  gpu  103.0 ms
+step 16  loader   17.1 ms  gpu  103.8 ms
+step 17  loader   16.6 ms  gpu  104.0 ms
+step 18  loader    4.2 ms  gpu  139.2 ms
+step 19  loader    4.1 ms  gpu  139.9 ms
+Epoch 98 finished in 40.84 seconds
+Epoch 98, average train loss=0.0027
+Validation for epoch 98 took 14.55 seconds
+Validation MSE: 0.0035
+Train MSE: 0.002738, Val MSE: 0.003498
+--- EPOCH 100/100 ---
+step 0   loader   15.4 ms  gpu  101.4 ms
+step 1   loader   17.3 ms  gpu  102.1 ms
+step 2   loader   16.6 ms  gpu  102.2 ms
+step 3   loader   17.5 ms  gpu  104.7 ms
+step 4   loader   16.5 ms  gpu  102.5 ms
+step 5   loader   17.1 ms  gpu  104.6 ms
+step 6   loader   16.7 ms  gpu  103.0 ms
+step 7   loader   16.9 ms  gpu   98.6 ms
+step 8   loader   19.1 ms  gpu  103.2 ms
+step 9   loader   16.9 ms  gpu  103.4 ms
+step 10  loader   16.3 ms  gpu  101.7 ms
+step 11  loader   16.6 ms  gpu  102.5 ms
+step 12  loader   16.5 ms  gpu  103.1 ms
+step 13  loader   17.4 ms  gpu  102.1 ms
+step 14  loader   17.2 ms  gpu  104.0 ms
+step 15  loader   17.0 ms  gpu  102.3 ms
+step 16  loader   16.4 ms  gpu  100.8 ms
+step 17  loader   27.5 ms  gpu   85.1 ms
+step 18  loader   50.2 ms  gpu   88.7 ms
+step 19  loader   55.0 ms  gpu   89.7 ms
+Epoch 99 finished in 40.70 seconds
+Epoch 99, average train loss=0.0027
+Validation for epoch 99 took 14.60 seconds
+Validation MSE: 0.0036
+Train MSE: 0.002735, Val MSE: 0.003570
+Time to load, train, and validate:  3242.5847334861755
+Inference on validation set took 26.61 seconds
+Saved predictions and targets.
